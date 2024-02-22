@@ -53,7 +53,7 @@ public partial class Dags(IDictionary<string, string> dict)
         }
 
         StringBuilder result = new();
-        int indent = 1;
+        int indent = 0;
         int parens = 0;
         bool ifLine = false;
         bool forLine = false;
@@ -92,7 +92,10 @@ public partial class Dags(IDictionary<string, string> dict)
                 }
                 else
                 {
-                    result.AppendLine();
+                    if (result.Length > 0)
+                    {
+                        result.AppendLine();
+                    }
                     if (indent > 0) result.Append(new string('\t', indent));
                 }
             }
@@ -146,9 +149,9 @@ public partial class Dags(IDictionary<string, string> dict)
                 }
             }
         }
-        if (indent != 1)
+        if (indent != 0)
         {
-            throw new SystemException($"Indent should be 1 at end of script: {indent}\n{script}");
+            throw new SystemException($"Indent should be 0 at end of script: {indent}\n{script}");
         }
         if (parens != 0)
         {
