@@ -5,7 +5,9 @@ namespace DagsLibrary;
 
 public partial class Dags
 {
+#pragma warning disable CA1822 // Mark members as static
     public string Help()
+#pragma warning restore CA1822 // Mark members as static
     {
         StringBuilder result = new();
         
@@ -63,6 +65,7 @@ public partial class Dags
         result.AppendLine($"   {FALSE}x)");
         result.AppendLine($"   {GE}x,y)");
         result.AppendLine($"   {GT}x,y)");
+        result.AppendLine($"   {ISBOOL}x)");
         result.AppendLine($"   {ISNULL}x)");
         result.AppendLine($"   {ISSCRIPT}x)");
         result.AppendLine($"   {LE}x,y)");

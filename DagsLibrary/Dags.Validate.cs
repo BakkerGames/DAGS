@@ -235,6 +235,7 @@ public partial class Dags
         GT,
         IF,
         INSERTATLIST,
+        ISBOOL,
         ISNULL,
         ISSCRIPT,
         LE,

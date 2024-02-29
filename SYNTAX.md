@@ -205,7 +205,7 @@ Any functions which returns truthy or falsey values may be defined and used as "
 
 @false(value)
 
->Returns true if "value" is falsey.
+>Returns true if "value" is falsey. Returns false if the value is truthy or isn't boolean.
 
 @ge(value1,value2)
 
@@ -214,6 +214,10 @@ Any functions which returns truthy or falsey values may be defined and used as "
 @gt(value1,value2)
 
 >Checks if integer "value1" is greater than integer "value2". Error if not integers.
+
+@isbool(value)
+
+>Returns true if "value" is truthy or falsey. Use this to test values in scripts.
 
 @isnull(value)
 
@@ -241,7 +245,7 @@ Any functions which returns truthy or falsey values may be defined and used as "
 
 @true(value)
 
->Returns true if "value" is truthy.
+>Returns true if "value" is truthy. Returns false if the value is falsey or isn't boolean.
 
 
 <br>

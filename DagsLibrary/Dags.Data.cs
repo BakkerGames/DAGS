@@ -58,31 +58,6 @@ public partial class Dags
     }
 
     /// <summary>
-    /// Gets a value from the dictionary and converts it to boolean.
-    /// </summary>
-    private bool GetBool(string key)
-    {
-        var value = Get(key);
-        try
-        {
-            return ConvertToBool(value);
-        }
-        catch (Exception)
-        {
-            throw new SystemException($"Value is not boolean: [{key}] {value}");
-        }
-    }
-
-    /// <summary>
-    /// Returns true if the dictionary contains the key.
-    /// </summary>
-    private bool ContainsKey(string key)
-    {
-        if (key.StartsWith('@')) key = key.ToLower();
-        return _dict.ContainsKey(key);
-    }
-
-    /// <summary>
     /// Gets a subset of the dictionary where key begins with the prefix. Case sensitive except for "@..." prefixes.
     /// </summary>
     private Dictionary<string, string> GetByPrefix(string prefix)

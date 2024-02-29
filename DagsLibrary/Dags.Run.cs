@@ -174,7 +174,14 @@ public partial class Dags
                 case FALSE:
                     // is the value false (or falsey)
                     CheckParamCount(token, p, 1);
-                    answer = !ConvertToBool(p[0]);
+                    try
+                    {
+                        answer = !ConvertToBool(p[0]);
+                    }
+                    catch (Exception)
+                    {
+                        answer = false;
+                    }
                     result.Append(ConvertToBoolString(answer));
                     return;
                 case FOR:
@@ -314,6 +321,20 @@ public partial class Dags
                     }
                     templist.Insert(int1, PackItem(p[2]));
                     Set(p[0], string.Join(',', templist));
+                    return;
+                case ISBOOL:
+                    // is value true or false?
+                    CheckParamCount(token, p, 1);
+                    try
+                    {
+                        _ = ConvertToBool(p[0]);
+                        answer = true;
+                    }
+                    catch (Exception)
+                    {
+                        answer = false;
+                    }
+                    result.Append(ConvertToBoolString(answer));
                     return;
                 case ISNULL:
                     // is the value null or empty
@@ -600,7 +621,14 @@ public partial class Dags
                 case TRUE:
                     // is value true (or truthy)
                     CheckParamCount(token, p, 1);
-                    answer = ConvertToBool(p[0]);
+                    try
+                    {
+                        answer = ConvertToBool(p[0]);
+                    }
+                    catch (Exception)
+                    {
+                        answer = false;
+                    }
                     result.Append(ConvertToBoolString(answer));
                     return;
                 case UPPER:

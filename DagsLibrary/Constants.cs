@@ -43,6 +43,7 @@ public static class Constants
     public const string GT = "@gt(";
     public const string IF = "@if";
     public const string INSERTATLIST = "@insertatlist(";
+    public const string ISBOOL = "@isbool(";
     public const string ISNULL = "@isnull(";
     public const string ISSCRIPT = "@isscript(";
     public const string LE = "@le(";

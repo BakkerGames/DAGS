@@ -6,31 +6,6 @@ namespace DagsLibrary;
 public partial class Dags
 {
     /// <summary>
-    /// Packs a value for proper storage
-    /// </summary>
-    private static string PackValue(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            return NULL_VALUE;
-        }
-        value = value.Replace("\r\n", "\\n").Replace("\n", "\\n");
-        return value;
-    }
-
-    /// <summary>
-    /// Unpacks a value for normal use 
-    /// </summary>
-    private static string UnpackValue(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value) || value.Equals(NULL_VALUE, OIC))
-        {
-            return "";
-        }
-        return value;
-    }
-
-    /// <summary>
     /// Packs an item in a list or array for proper storage
     /// </summary>
     private static string PackItem(string value)
@@ -103,14 +78,6 @@ public partial class Dags
             return true;
         }
         throw new SystemException($"Value is not boolean: {value}");
-    }
-
-    /// <summary>
-    /// Converts a truthy or falsey value to a boolean string, or throws an error.
-    /// </summary>
-    private static string ConvertToBoolString(string value)
-    {
-        return ConvertToBool(value) ? TRUE_VALUE : FALSE_VALUE;
     }
 
     /// <summary>

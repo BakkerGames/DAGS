@@ -450,6 +450,23 @@ public class UnitTests
     }
 
     [Test]
+    public void Test_IsBool()
+    {
+        Dictionary<string, string> data = [];
+        Dags dags = new(data);
+        StringBuilder result = new();
+        result.Clear();
+        dags.RunScript("@write(@isbool(0))", result);
+        Assert.That(result.ToString(), Is.EqualTo("true"));
+        result.Clear();
+        dags.RunScript("@write(@isbool(1))", result);
+        Assert.That(result.ToString(), Is.EqualTo("true"));
+        result.Clear();
+        dags.RunScript("@write(@isbool(notboolean))", result);
+        Assert.That(result.ToString(), Is.EqualTo("false"));
+    }
+
+    [Test]
     public void Test_IsNull()
     {
         Dictionary<string, string> data = [];
