@@ -793,9 +793,7 @@ public class UnitTests
     [Test]
     public void Test_Help()
     {
-        Dictionary<string, string> data = [];
-        Dags dags = new(data);
-        var helpText = dags.Help();
+        var helpText = Dags.Help();
         Assert.That(helpText, !Is.EqualTo(null));
     }
 
@@ -806,5 +804,13 @@ public class UnitTests
         var expected = "@if @eq(@get(value),0) @then\r\n\t@write(\"zero\")\r\n@else\r\n\t@write(\"not zero\")\r\n@endif";
         var actual = Dags.PrettyScript(script);
         Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void Test_PrettyScript_Same()
+    {
+        var script = "@write(\"hello \\\"wonderful\\\" world.\")";
+        var actual = Dags.PrettyScript(script);
+        Assert.That(actual, Is.EqualTo(script));
     }
 }

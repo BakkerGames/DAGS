@@ -131,6 +131,12 @@ public partial class Dags
                     inToken = false;
                     continue;
                 }
+                if (c == '"' && lastSlash)
+                {
+                    token.Append("\\\\\"");
+                    lastSlash = false;
+                    continue;
+                }
                 if (c == '\\' && !lastSlash)
                 {
                     lastSlash = true;

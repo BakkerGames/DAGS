@@ -721,7 +721,7 @@ public partial class Dags
             }
             if (tokens[index].StartsWith('"') && tokens[index].EndsWith('"'))
             {
-                return tokens[index++][1..^1];
+                return tokens[index++][1..^1].Replace("\\\"", "\"");
             }
             if (tokens[index] == ",")
             {

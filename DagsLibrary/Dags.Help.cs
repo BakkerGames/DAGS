@@ -5,9 +5,7 @@ namespace DagsLibrary;
 
 public partial class Dags
 {
-#pragma warning disable CA1822 // Mark members as static
-    public string Help()
-#pragma warning restore CA1822 // Mark members as static
+    public static string Help()
     {
         StringBuilder result = new();
         
