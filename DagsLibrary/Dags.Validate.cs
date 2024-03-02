@@ -237,6 +237,7 @@ public partial class Dags
         INSERTATLIST,
         ISBOOL,
         ISNULL,
+        ISNUMBER,
         ISSCRIPT,
         LE,
         LISTLENGTH,

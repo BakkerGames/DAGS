@@ -65,6 +65,7 @@ public partial class Dags
         result.AppendLine($"   {GT}x,y)");
         result.AppendLine($"   {ISBOOL}x)");
         result.AppendLine($"   {ISNULL}x)");
+        result.AppendLine($"   {ISNUMBER}x)");
         result.AppendLine($"   {ISSCRIPT}x)");
         result.AppendLine($"   {LE}x,y)");
         result.AppendLine($"   {LT}x,y)");

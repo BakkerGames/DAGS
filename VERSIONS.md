@@ -6,4 +6,6 @@
 
 1.0.2 - Added "@isbool(x)" so scripts can test if values are boolean. Changed "@true" and "@false" to return false if value isn't boolean, instead of throwing errors.
 
-1.1.0 - Breaking changes: Fixed quotes within quoted strings. Made Help() static.
+1.1.0 - Breaking change: Made Help() static. Also: Fixed quotes within quoted strings. Added "@isnumber()".
+
+1.1.1 - Fixed RunScript() when called with a text string instead of a script.

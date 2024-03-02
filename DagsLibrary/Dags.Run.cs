@@ -342,6 +342,12 @@ public partial class Dags
                     answer = p[0] == "" || p[0].Equals(NULL_VALUE, OIC);
                     result.Append(ConvertToBoolString(answer));
                     return;
+                case ISNUMBER:
+                    // is the value a number
+                    CheckParamCount(token, p, 1);
+                    answer = p[0] != "" && int.TryParse(p[0], out _);
+                    result.Append(ConvertToBoolString(answer));
+                    return;
                 case ISSCRIPT:
                     // is the value a script (starts with '@')
                     CheckParamCount(token, p, 1);

@@ -223,6 +223,10 @@ Any functions which returns truthy or falsey values may be defined and used as "
 
 >Returns true if "value" is "" or "null",
 
+@isnumber(value)
+
+>Returns true if the value is an integer number.
+
 @isscript(value)
 
 >Checks if "value" starts with "@".

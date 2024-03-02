@@ -27,6 +27,11 @@ public partial class Dags(IDictionary<string, string> dict)
         {
             return;
         }
+        if (!script.TrimStart().StartsWith('@'))
+        {
+            result.Append(script);
+            return;
+        }
         try
         {
             var tokens = SplitTokens(script);
