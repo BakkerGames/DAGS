@@ -1,6 +1,6 @@
-﻿using static DagsLibrary.Constants;
+﻿using static DAGS.Constants;
 
-namespace DagsLibrary;
+namespace DAGS;
 
 public partial class Dags
 {

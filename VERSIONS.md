@@ -9,3 +9,5 @@
 1.1.0 - Breaking change: Made Help() static. Also: Fixed quotes within quoted strings. Added "@isnumber()".
 
 1.1.1 - Fixed RunScript() when called with a text string instead of a script.
+
+1.2.0 - Renamed to DAGS. Added @falsedata(key), @truedata(key), @isbooldata(key), @isnulldata(key), @isnumberdata(key), @isscriptdata(key).

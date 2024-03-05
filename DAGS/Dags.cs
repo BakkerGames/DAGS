@@ -1,7 +1,7 @@
 ﻿using System.Text;
-using static DagsLibrary.Constants;
+using static DAGS.Constants;
 
-namespace DagsLibrary;
+namespace DAGS;
 
 /// <summary>
 /// Generate a DAGS script object and assign its dictionary.
