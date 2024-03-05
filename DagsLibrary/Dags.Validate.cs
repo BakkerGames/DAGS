@@ -238,6 +238,8 @@ public partial class Dags
         ISBOOL,
         ISNULL,
         ISNUMBER,
+        ISRAWNULL,
+        ISRAWSCRIPT,
         ISSCRIPT,
         LE,
         LISTLENGTH,

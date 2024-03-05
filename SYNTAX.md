@@ -227,6 +227,14 @@ Any functions which returns truthy or falsey values may be defined and used as "
 
 >Returns true if the value is an integer number.
 
+@israwnull(value)
+
+>Returns true if the raw value is "" or "null",
+
+@israwscript(value)
+
+>Checks if the raw value starts with "@".
+
 @isscript(value)
 
 >Checks if "value" starts with "@".

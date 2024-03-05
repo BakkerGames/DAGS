@@ -46,6 +46,8 @@ public static class Constants
     public const string ISBOOL = "@isbool(";
     public const string ISNULL = "@isnull(";
     public const string ISNUMBER = "@isnumber(";
+    public const string ISRAWNULL = "@israwnull(";
+    public const string ISRAWSCRIPT = "@israwscript(";
     public const string ISSCRIPT = "@isscript(";
     public const string LE = "@le(";
     public const string LISTLENGTH = "@listlength(";
