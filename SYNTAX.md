@@ -117,7 +117,7 @@ There is an "InChannel" queue and an "OutChannel" queue which are used for passi
 
 @get(key)
 
->Returns the raw value for "key" from the dictionary.
+>Returns the data value for "key" from the dictionary.
 
 @getvalue(key)
 
@@ -207,6 +207,10 @@ Any functions which returns truthy or falsey values may be defined and used as "
 
 >Returns true if "value" is falsey. Returns false if the value is truthy or isn't boolean.
 
+@falsedata(key)
+
+>Returns true if the data value for "key" is falsey. Returns false if the value is truthy or isn't boolean.
+
 @ge(value1,value2)
 
 >Checks if integer "value1" is greater than or equal to integer "value2". Error if not integers.
@@ -217,27 +221,35 @@ Any functions which returns truthy or falsey values may be defined and used as "
 
 @isbool(value)
 
->Returns true if "value" is truthy or falsey. Use this to test values in scripts.
+>Returns true if "value" is truthy or falsey.
+
+@isbooldata(key)
+
+>Returns true if the data value for "key" is truthy or falsey.
 
 @isnull(value)
 
 >Returns true if "value" is "" or "null",
 
+@isnulldata(key)
+
+>Returns true if the data value for "key" is "" or "null",
+
 @isnumber(value)
 
 >Returns true if the value is an integer number.
 
-@israwnull(value)
+@isnumberdata(key)
 
->Returns true if the raw value is "" or "null",
-
-@israwscript(value)
-
->Checks if the raw value starts with "@".
+>Returns true if the data value for "key" is an integer number.
 
 @isscript(value)
 
 >Checks if "value" starts with "@".
+
+@isscriptdata(key)
+
+>Checks if the data value for "key" starts with "@".
 
 @le(value1,value2)
 
@@ -258,6 +270,10 @@ Any functions which returns truthy or falsey values may be defined and used as "
 @true(value)
 
 >Returns true if "value" is truthy. Returns false if the value is falsey or isn't boolean.
+
+@truedata(key)
+
+>Returns true if the data value for "key" is truthy. Returns false if the value is falsey or isn't boolean.
 
 
 <br>
@@ -338,7 +354,7 @@ These commands allow named lists of values to be stored as a single group instea
 
 @insertatlist(name,pos,value)
 
->Inserts "value" at position "pos" (starting at 0) from list, shifting all later ones. If "pos" is past the end of the list, all values from the end up to "pos" are filled with "null" and then value is added.
+>Inserts "value" at position "pos" (starting at 0) from list, shifting all later ones. If "pos" is past the end of the list, all values from the end up to "pos" are filled with "null" and then "value" is added.
 
 @listlength(name)
 
@@ -350,7 +366,7 @@ These commands allow named lists of values to be stored as a single group instea
 
 @setlist(name,pos,value)
 
->Sets the value at position "pos" (starting at 0) for the list "name". If "pos" is beyond the end of the list, all values from the end up to "pos" are filled with "null" and then value is added.
+>Sets the value at position "pos" (starting at 0) for the list "name". If "pos" is beyond the end of the list, all values from the end up to "pos" are filled with "null" and then "value" is added.
 
 
 <br>

@@ -5,20 +5,20 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Authors>Scott Bakker,chimera343</Authors>
+    <Authors>Scott Bakker</Authors>
     <Company>BakkerGames</Company>
     <Copyright>Copyright 2023-2024 Scott Bakker</Copyright>
     <Description>DAGS - Data Access Game Scripts
 A simple scripting language for handling game data in a dictionary object.</Description>
     <PackageLicenseExpression>MIT-0</PackageLicenseExpression>
     <PackageOutputPath>..\NuGet\</PackageOutputPath>
-    <PackageProjectUrl>https://github.com/BakkerGames/DagsLibrary</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/BakkerGames/DAGS</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/BakkerGames/DagsLibrary</RepositoryUrl>
+    <RepositoryUrl>https://github.com/BakkerGames/DAGS</RepositoryUrl>
     <Title>DAGS - Data Access Game Scripts</Title>
-    <Version>1.1.2</Version>
-    <AssemblyVersion>1.1.2</AssemblyVersion>
-    <FileVersion>1.1.2</FileVersion>
+    <Version>1.2.0</Version>
+    <AssemblyVersion>1.2.0</AssemblyVersion>
+    <FileVersion>1.2.0</FileVersion>
     <PackageTags>dags;scripting;game;development;engine;text;adventure;if;interactive;fiction</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>

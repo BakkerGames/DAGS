@@ -1,7 +1,7 @@
 ﻿using System.Text;
-using static DagsLibrary.Constants;
+using static DAGS.Constants;
 
-namespace DagsLibrary;
+namespace DAGS;
 
 public partial class Dags
 {
@@ -172,11 +172,25 @@ public partial class Dags
                     result.Append(value);
                     return;
                 case FALSE:
-                    // is the value false (or falsey)
+                    // is the value false (or falsey). false if error.
                     CheckParamCount(token, p, 1);
                     try
                     {
                         answer = !ConvertToBool(p[0]);
+                    }
+                    catch (Exception)
+                    {
+                        answer = false;
+                    }
+                    result.Append(ConvertToBoolString(answer));
+                    return;
+                case FALSEDATA:
+                    // is the raw value false (or falsey). false if error.
+                    CheckParamCount(token, p, 1);
+                    temp1 = Get(p[0]);
+                    try
+                    {
+                        answer = !ConvertToBool(temp1);
                     }
                     catch (Exception)
                     {
@@ -336,10 +350,32 @@ public partial class Dags
                     }
                     result.Append(ConvertToBoolString(answer));
                     return;
+                case ISBOOLDATA:
+                    // is raw value true or false?
+                    CheckParamCount(token, p, 1);
+                    temp1 = Get(p[0]);
+                    try
+                    {
+                        _ = ConvertToBool(temp1);
+                        answer = true;
+                    }
+                    catch (Exception)
+                    {
+                        answer = false;
+                    }
+                    result.Append(ConvertToBoolString(answer));
+                    return;
                 case ISNULL:
                     // is the value null or empty
                     CheckParamCount(token, p, 1);
                     answer = p[0] == "" || p[0].Equals(NULL_VALUE, OIC);
+                    result.Append(ConvertToBoolString(answer));
+                    return;
+                case ISNULLDATA:
+                    // is the raw value null or empty
+                    CheckParamCount(token, p, 1);
+                    temp1 = Get(p[0]);
+                    answer = temp1 == "";
                     result.Append(ConvertToBoolString(answer));
                     return;
                 case ISNUMBER:
@@ -348,24 +384,24 @@ public partial class Dags
                     answer = p[0] != "" && int.TryParse(p[0], out _);
                     result.Append(ConvertToBoolString(answer));
                     return;
-                case ISRAWNULL:
-                    // get a raw value
+                case ISNUMBERDATA:
+                    // is the raw value a number
                     CheckParamCount(token, p, 1);
                     temp1 = Get(p[0]);
-                    answer = temp1 == "";
-                    result.Append(ConvertToBoolString(answer));
-                    return;
-                case ISRAWSCRIPT:
-                    // get a raw value
-                    CheckParamCount(token, p, 1);
-                    temp1 = Get(p[0]);
-                    answer = temp1.StartsWith('@');
+                    answer = temp1 != "" && int.TryParse(temp1, out _);
                     result.Append(ConvertToBoolString(answer));
                     return;
                 case ISSCRIPT:
                     // is the value a script (starts with '@')
                     CheckParamCount(token, p, 1);
                     answer = p[0].StartsWith('@');
+                    result.Append(ConvertToBoolString(answer));
+                    return;
+                case ISSCRIPTDATA:
+                    // is the raw value a script (starts with '@')
+                    CheckParamCount(token, p, 1);
+                    temp1 = Get(p[0]);
+                    answer = temp1.StartsWith('@');
                     result.Append(ConvertToBoolString(answer));
                     return;
                 case LE:
@@ -639,11 +675,25 @@ public partial class Dags
                     result.Append(p[0].Replace("\\n", "").Trim());
                     return;
                 case TRUE:
-                    // is value true (or truthy)
+                    // is value true (or truthy). false if error.
                     CheckParamCount(token, p, 1);
                     try
                     {
                         answer = ConvertToBool(p[0]);
+                    }
+                    catch (Exception)
+                    {
+                        answer = false;
+                    }
+                    result.Append(ConvertToBoolString(answer));
+                    return;
+                case TRUEDATA:
+                    // is raw value true (or truthy). false if error.
+                    CheckParamCount(token, p, 1);
+                    temp1 = Get(p[0]);
+                    try
+                    {
+                        answer = ConvertToBool(temp1);
                     }
                     catch (Exception)
                     {

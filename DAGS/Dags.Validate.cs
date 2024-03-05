@@ -1,7 +1,7 @@
 ﻿using System.Text;
-using static DagsLibrary.Constants;
+using static DAGS.Constants;
 
-namespace DagsLibrary;
+namespace DAGS;
 
 public partial class Dags
 {
@@ -222,6 +222,7 @@ public partial class Dags
         EQ,
         EXEC,
         FALSE,
+        FALSEDATA,
         FOR,
         FOREACHKEY,
         FOREACHLIST,
@@ -236,11 +237,13 @@ public partial class Dags
         IF,
         INSERTATLIST,
         ISBOOL,
+        ISBOOLDATA,
         ISNULL,
+        ISNULLDATA,
         ISNUMBER,
-        ISRAWNULL,
-        ISRAWSCRIPT,
+        ISNUMBERDATA,
         ISSCRIPT,
+        ISSCRIPTDATA,
         LE,
         LISTLENGTH,
         LOWER,
@@ -270,6 +273,7 @@ public partial class Dags
         THEN,
         TRIM,
         TRUE,
+        TRUEDATA,
         UPPER,
         WRITE,
     ];

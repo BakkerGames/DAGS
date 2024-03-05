@@ -1,7 +1,7 @@
 ﻿using System.Text;
-using static DagsLibrary.Constants;
+using static DAGS.Constants;
 
-namespace DagsLibrary;
+namespace DAGS;
 
 public partial class Dags
 {
@@ -66,8 +66,8 @@ public partial class Dags
         result.AppendLine($"   {ISBOOL}x)");
         result.AppendLine($"   {ISNULL}x)");
         result.AppendLine($"   {ISNUMBER}x)");
-        result.AppendLine($"   {ISRAWNULL}x)");
-        result.AppendLine($"   {ISRAWSCRIPT}x)");
+        result.AppendLine($"   {ISNULLDATA}x)");
+        result.AppendLine($"   {ISSCRIPTDATA}x)");
         result.AppendLine($"   {ISSCRIPT}x)");
         result.AppendLine($"   {LE}x,y)");
         result.AppendLine($"   {LT}x,y)");

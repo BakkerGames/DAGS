@@ -1,4 +1,4 @@
-﻿namespace DagsLibrary;
+﻿namespace DAGS;
 
 public partial class Dags
 {
