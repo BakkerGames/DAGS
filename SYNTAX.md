@@ -471,12 +471,18 @@ A function with no parameters would have a "key" of the desired function name: "
 
 A function with parameters would have a "key" with the specified name and would list the parameters in parentheses separated by commas: "@myfunc(x,y,z)". The "value" would be a script with replaceable parameter values such as "$x", "$y", "$z" somewhere in it. Any number of parameters may be specified, but at least one. The parameter names can be anything desired but should have no spaces or special characters, or conflict with other parameters from @for(), @foreachkey(), or @foreachlist() statements within the script.
 
+Functions return values by writing them. All output from the function is the returned value.
+
+If you are adding functions which will be conditions in an `@if` statement, be sure that they return the words `true` or `false` (or other truthy/falsey values).
+
 Examples:
 
-@quitmsg=Are you sure you want to quit?
+@quitmsg = Are you sure you want to quit?
 
-@score=@write("You have a score of ",@get(value.score)," out of ",@get(value.maxscore)," points.") @nl @nl
+@score = @write("You have a score of ",@get(value.score)," out of ",@get(value.maxscore)," points.") @nl @nl
 
-@moveto(x,y)=@comment("moves the item to a location") @set(item.$x.location,$y)
+@moveto(x,y) = @comment("moves the item to a location") @set(item.$x.location,$y)
 
-@unknown(x)=@write("I don't understand \"$x\".\n")
+@unknown(x) = @write("I don't understand \"$x\".\n")
+
+@isnegative(x) = @if @lt($x,0) @then @write(\"true\") @else @write(\"false\") @endif
