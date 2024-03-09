@@ -891,7 +891,15 @@ public partial class Dags
             notFlag = true;
             index++;
         }
-        var answer = ConvertToBool(GetOneValue(tokens, ref index));
+        bool answer;
+        try
+        {
+            answer = ConvertToBool(GetOneValue(tokens, ref index));
+        }
+        catch (Exception)
+        {
+            answer = false;
+        }
         if (notFlag) answer = !answer;
         return answer;
     }
