@@ -11,3 +11,5 @@
 1.1.1 - Fixed RunScript() when called with a text string instead of a script.
 
 1.2.0 - Renamed to DAGS. Added @falsedata(key), @truedata(key), @isbooldata(key), @isnulldata(key), @isnumberdata(key), @isscriptdata(key).
+
+1.2.1 - Added error checking in CheckOneCondition() for non-boolean data.
