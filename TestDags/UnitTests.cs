@@ -901,4 +901,26 @@ public class UnitTests
         var actual = Dags.PrettyScript(script);
         Assert.That(actual, Is.EqualTo(script));
     }
+
+    [Test]
+    public void Test_IfThenNoStatements()
+    {
+        Dictionary<string, string> data = [];
+        Dags dags = new(data);
+        StringBuilder result = new();
+        var script = "@if @eq(1,1) @then @endif";
+        dags.RunScript(script, result);
+        Assert.That(result.ToString(), Is.EqualTo(""));
+    }
+
+    [Test]
+    public void Test_IfThenElseNoStatements()
+    {
+        Dictionary<string, string> data = [];
+        Dags dags = new(data);
+        StringBuilder result = new();
+        var script = "@if @eq(1,2) @then @write(abc) @else @endif";
+        dags.RunScript(script, result);
+        Assert.That(result.ToString(), Is.EqualTo(""));
+    }
 }
