@@ -948,7 +948,7 @@ public class UnitTests
     [Test]
     public void Test_VersionHistory()
     {
-        var helpText = Dags.Syntax();
+        var helpText = Dags.VersionHistory();
         Assert.That(helpText, !Is.EqualTo(null));
     }
 }
