@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Reflection;
+using System.Text;
 using static DAGS.Constants;
 
 namespace DAGS;
@@ -8,7 +9,7 @@ public partial class Dags
     public static string Help()
     {
         StringBuilder result = new();
-        
+
         result.AppendLine("Statements:");
         result.AppendLine($"   {COMMENT}x)");
         result.AppendLine($"   {EXEC}script)");
@@ -119,4 +120,48 @@ public partial class Dags
 
         return result.ToString();
     }
+
+    public static string ReadMe()
+    {
+        return GetResourceText("DAGS.README.md");
+    }
+
+    public static string License()
+    {
+        return GetResourceText("DAGS.LICENSE.md");
+    }
+
+    public static string Syntax()
+    {
+        return GetResourceText("DAGS.SYNTAX.md");
+    }
+
+    public static string VersionHistory()
+    {
+        return GetResourceText("DAGS.VERSIONS.md");
+    }
+
+    #region Private
+
+    private static string GetResourceText(string resourceName)
+    {
+        var result = "";
+        try
+        {
+            var _assembly = Assembly.GetExecutingAssembly();
+            if (_assembly != null)
+            {
+                var _textStreamReader = new StreamReader(_assembly.GetManifestResourceStream(resourceName));
+                result = _textStreamReader.ReadToEnd();
+                result = result.Replace("<br>", "");
+            }
+            return result;
+        }
+        catch
+        {
+            return "";
+        }
+    }
+
+    #endregion
 }

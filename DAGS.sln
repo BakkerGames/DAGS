@@ -5,7 +5,12 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAGS", "DAGS\DAGS.csproj", "{41C9F66A-B3C0-4D4C-AAE3-B059921F6F0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDags", "TestDags\TestDags.csproj", "{9E634B93-FCAB-41E0-B9ED-68F14FF89745}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDags", "TestDags\TestDags.csproj", "{9E634B93-FCAB-41E0-B9ED-68F14FF89745}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E33FA608-0377-4EFD-B0CF-AF749A146AAB}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
