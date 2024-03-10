@@ -16,4 +16,4 @@
 
 1.2.2 - Changed RunScript() to return error messages in "result" instead of throwing an error. Fixed some error text.
 
-1.2.3 - Added ReadMe(), License(), Syntax(), and VersionHistory() for retriving that information from the documents.
+1.2.3 - Added ReadMe(), License(), Syntax(), and VersionHistory() for retriving that information.

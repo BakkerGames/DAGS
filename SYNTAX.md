@@ -13,8 +13,6 @@ Scripts are processed by RunScript(script, result), with "result" a StringBuilde
 There is an "InChannel" queue and an "OutChannel" queue which are used for passing string values between DAGS and the calling program. Strings placed on the queues would be handled by the other end as appropriate.
 
 
-<br>
-
 ## Constants
 
 "null"
@@ -23,8 +21,6 @@ There is an "InChannel" queue and an "OutChannel" queue which are used for passi
 
 "false"
 
-
-<br>
 
 ## Statements
 
@@ -49,8 +45,6 @@ There is an "InChannel" queue and an "OutChannel" queue which are used for passi
 >Swaps the values stored in "key1" and "key2".
 
 
-<br>
-
 ## Numeric Statements
 
 @addto(key,value)
@@ -74,8 +68,6 @@ There is an "InChannel" queue and an "OutChannel" queue which are used for passi
 >Divides integer stored in "key" by integer "value". Stores the remainder back in "key".
 
 
-<br>
-
 ## Output Statements
 
 @msg(key)
@@ -90,8 +82,6 @@ There is an "InChannel" queue and an "OutChannel" queue which are used for passi
 
 >Writes all the values concatinated to result.
 
-
-<br>
 
 ## Functions
 
@@ -160,8 +150,6 @@ There is an "InChannel" queue and an "OutChannel" queue which are used for passi
 >Returns "value" changed to all uppercase.
 
 
-<br>
-
 ## If Block
 
 @if
@@ -184,8 +172,6 @@ There is an "InChannel" queue and an "OutChannel" queue which are used for passi
 
 >Ends the "@if" block. Required.
 
-
-<br>
 
 ## If Conditions
 
@@ -276,8 +262,6 @@ Any functions which returns truthy or falsey values may be defined and used as "
 >Returns true if the data value for "key" is truthy. Returns false if the value is falsey or isn't boolean.
 
 
-<br>
-
 ## Condition Connectors/Modifiers
 
 @and
@@ -293,8 +277,6 @@ Any functions which returns truthy or falsey values may be defined and used as "
 >Reverses the answer on the next condition.
 
 
-<br>
-
 ## For Loop
 
 @for(token,start,end)
@@ -306,8 +288,6 @@ Any functions which returns truthy or falsey values may be defined and used as "
 >Marks the end of the "@for" loop.
 
 
-<br>
-
 ## ForEachKey Loop
 
 @foreachkey(token,prefix) or @foreachkey(token,prefix,suffix)
@@ -318,8 +298,6 @@ Any functions which returns truthy or falsey values may be defined and used as "
 
 >Marks the end of the "@foreachkey" loop.
 
-
-<br>
 
 ## ForEachList Loop
 
@@ -333,8 +311,6 @@ Any functions which returns truthy or falsey values may be defined and used as "
 
 >Marks the end of the "@foreachlist" loop.
 
-
-<br>
 
 ## List Statements/Functions
 
@@ -369,8 +345,6 @@ These commands allow named lists of values to be stored as a single group instea
 >Sets the value at position "pos" (starting at 0) for the list "name". If "pos" is beyond the end of the list, all values from the end up to "pos" are filled with "null" and then "value" is added.
 
 
-<br>
-
 ## Array Statements/Functions
 
 These commands allow a two-dimensional array of values to be stored as a group. They are sparse arrays with unspecified values returned as "". The items will be separated by commas, so commas in the values will be replaced by the token "\x2C" when stored. Empty strings "" will be replaced by "null" when stored so they can be handled properly. Arrays are stored in the dictionary with the keys "{name}.{y}", with "{y}" as the row number.
@@ -390,8 +364,6 @@ Note that the array values are referenced by row (y) first and then column (x), 
 >Sets the value at position "y,x" (starting at 0,0) for the array "name". If either "y" or "x" is beyond the edge of the stored values, missing values will be set to "null" as needed before adding "value".
 
 
-<br>
-
 ## In/Out Channel Commands
 
 @setoutchannel(value)
@@ -402,8 +374,6 @@ Note that the array values are referenced by row (y) first and then column (x), 
 
 >Gets the next value from the InChannel queue and returns it. The script would use or process that value as appropriate.
 
-
-<br>
 
 ## Public Interface
 
@@ -440,8 +410,6 @@ string Help()
 >Returns a syntax listing of all DAGS commands.
 
 
-<br>
-
 ## Debugging
 
 Debugging is available in a limited form. It is for stepping through a script and figuring out issues. It steps through each statement and returns each result separately. It will step through each condition in an "@if" block but only at the top level, not for nested "@if"s. It does perform any changes on the data. The calling program starts with DebugScript() and then calls DebugNext() until done.
@@ -458,8 +426,6 @@ bool DebugDone()
 
 >Returns True when "script" has finished.
 
-
-<br>
 
 ## Adding new functions to DAGS
 

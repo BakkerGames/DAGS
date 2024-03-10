@@ -20,7 +20,7 @@ A simple scripting language for handling game data in a dictionary object.</Desc
     <AssemblyVersion>1.2.3</AssemblyVersion>
     <FileVersion>1.2.3</FileVersion>
     <PackageTags>dags;scripting;game;development;engine;text;adventure;if;interactive;fiction</PackageTags>
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageReleaseNotes>1.2.3 - Added ReadMe(), License(), Syntax(), and VersionHistory() for retriving that information.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

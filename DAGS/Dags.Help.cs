@@ -153,7 +153,6 @@ public partial class Dags
             {
                 var _textStreamReader = new StreamReader(_assembly.GetManifestResourceStream(resourceName));
                 result = _textStreamReader.ReadToEnd();
-                result = result.Replace("<br>", "");
             }
             return result;
         }
