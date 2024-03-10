@@ -16,9 +16,9 @@ A simple scripting language for handling game data in a dictionary object.</Desc
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/BakkerGames/DAGS</RepositoryUrl>
     <Title>DAGS - Data Access Game Scripts</Title>
-    <Version>1.2.2</Version>
-    <AssemblyVersion>1.2.2</AssemblyVersion>
-    <FileVersion>1.2.2</FileVersion>
+    <Version>1.2.3</Version>
+    <AssemblyVersion>1.2.3</AssemblyVersion>
+    <FileVersion>1.2.3</FileVersion>
     <PackageTags>dags;scripting;game;development;engine;text;adventure;if;interactive;fiction</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
@@ -32,22 +32,22 @@ A simple scripting language for handling game data in a dictionary object.</Desc
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\LICENSE.md">
+    <EmbeddedResource Include="..\LICENSE.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
-    </None>
-    <None Include="..\README.md">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
-    </None>
-    <None Include="..\SYNTAX.md">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\SYNTAX.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
-    </None>
-    <None Include="..\VERSIONS.md">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\VERSIONS.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
-    </None>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

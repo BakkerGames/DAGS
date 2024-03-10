@@ -923,4 +923,32 @@ public class UnitTests
         dags.RunScript(script, result);
         Assert.That(result.ToString(), Is.EqualTo(""));
     }
+
+    [Test]
+    public void Test_Readme()
+    {
+        var helpText = Dags.ReadMe();
+        Assert.That(helpText, !Is.EqualTo(null));
+    }
+
+    [Test]
+    public void Test_License()
+    {
+        var helpText = Dags.License();
+        Assert.That(helpText, !Is.EqualTo(null));
+    }
+
+    [Test]
+    public void Test_Syntax()
+    {
+        var helpText = Dags.Syntax();
+        Assert.That(helpText, !Is.EqualTo(null));
+    }
+
+    [Test]
+    public void Test_VersionHistory()
+    {
+        var helpText = Dags.Syntax();
+        Assert.That(helpText, !Is.EqualTo(null));
+    }
 }
