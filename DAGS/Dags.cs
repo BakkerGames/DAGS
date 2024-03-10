@@ -43,7 +43,8 @@ public partial class Dags(IDictionary<string, string> dict)
         }
         catch (Exception ex)
         {
-            throw new SystemException($"{ex.Message}{Environment.NewLine}{script}");
+            if (result.Length > 0) result.AppendLine();
+            result.AppendLine($"{ex.Message}{Environment.NewLine}{script}");
         }
     }
 
@@ -156,11 +157,11 @@ public partial class Dags(IDictionary<string, string> dict)
         }
         if (indent != 0)
         {
-            throw new SystemException($"Indent should be 0 at end of script: {indent}\n{script}");
+            throw new SystemException($"Indent mismatch, should be 0 at end of script: {indent}\n{script}");
         }
         if (parens != 0)
         {
-            throw new SystemException($"Parenthesis should be 0 at end of script: {parens}\n{script}");
+            throw new SystemException($"Parenthesis mismatch, should be 0 at end of script: {parens}\n{script}");
         }
         return result.ToString();
     }

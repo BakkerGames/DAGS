@@ -13,3 +13,5 @@
 1.2.0 - Renamed to DAGS. Added @falsedata(key), @truedata(key), @isbooldata(key), @isnulldata(key), @isnumberdata(key), @isscriptdata(key).
 
 1.2.1 - Added error checking in CheckOneCondition() for non-boolean data.
+
+1.2.2 - Changed RunScript() to return error messages in "result" instead of throwing an error. Fixed some error text.
