@@ -35,6 +35,13 @@ public partial class Dags(IDictionary<string, string> dict)
         try
         {
             var tokens = SplitTokens(script);
+            if (DebugFlag)
+            {
+                for (int i = 0; i < tokens.Length; i++)
+                {
+                    result.AppendLine($"### [{i}]: {tokens[i]}");
+                }
+            }
             int index = 0;
             while (index < tokens.Length)
             {

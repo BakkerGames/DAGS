@@ -15,6 +15,10 @@ public partial class Dags
             string temp2;
             bool answer;
             var token = tokens[index++];
+            if (DebugFlag)
+            {
+                result.AppendLine($"### [{index - 1}]: {token}");
+            }
             List<string> templist;
 
             // static value
@@ -59,6 +63,13 @@ public partial class Dags
 
             // get parameters
             var p = GetParameters(tokens, ref index);
+            if (DebugFlag)
+            {
+                for (int j = 0; j < p.Count; j++)
+                {
+                    result.AppendLine($"### parameter {j}: {p[j]}");
+                }
+            }
 
             // parse tokens
             switch (token)
@@ -808,7 +819,7 @@ public partial class Dags
     private void HandleIf(string[] tokens, ref int index, StringBuilder result)
     {
         // @if <conditions> @then ... [@elseif <conditions> @then ...] [<repeat>] [@else ...] @endif
-        if (CheckConditions(tokens, ref index))
+        if (CheckConditions(tokens, ref index, result))
         {
             while (!tokens[index].Equals(ELSE, OIC) &&
                    !tokens[index].Equals(ELSEIF, OIC) &&
@@ -841,11 +852,11 @@ public partial class Dags
         }
     }
 
-    private bool CheckConditions(string[] tokens, ref int index)
+    private bool CheckConditions(string[] tokens, ref int index, StringBuilder result)
     {
         try
         {
-            var answer = CheckOneCondition(tokens, ref index);
+            var answer = CheckOneCondition(tokens, ref index, result);
             while (!tokens[index].Equals(THEN, OIC))
             {
                 if (tokens[index].Equals(AND, OIC))
@@ -872,7 +883,7 @@ public partial class Dags
                 {
                     throw new SystemException($"Expected @AND or @OR but found: {tokens[index]}");
                 }
-                answer = CheckOneCondition(tokens, ref index);
+                answer = CheckOneCondition(tokens, ref index, result);
             }
             index++; // skip @then
             return answer;
@@ -883,7 +894,7 @@ public partial class Dags
         }
     }
 
-    private bool CheckOneCondition(string[] tokens, ref int index)
+    private bool CheckOneCondition(string[] tokens, ref int index, StringBuilder result)
     {
         var notFlag = false;
         if (tokens[index].Equals(NOT, OIC))
@@ -894,11 +905,26 @@ public partial class Dags
         bool answer;
         try
         {
+            if (DebugFlag)
+            {
+                result.AppendLine($"### [{index}]: {tokens[index]}");
+            }
             answer = ConvertToBool(GetOneValue(tokens, ref index));
         }
         catch (Exception)
         {
             answer = false;
+        }
+        if (DebugFlag)
+        {
+            if (notFlag)
+            {
+                result.AppendLine($"### Answer = @not {answer} = {!answer}");
+            }
+            else
+            {
+                result.AppendLine($"### Answer = {answer}");
+            }
         }
         if (notFlag) answer = !answer;
         return answer;
