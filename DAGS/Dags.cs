@@ -35,6 +35,12 @@ public partial class Dags(IDictionary<string, string> dict)
         try
         {
             var tokens = SplitTokens(script);
+            if (_debugLogFlag)
+            {
+                _debugLogResult.AppendLine();
+                _debugLogResult.AppendLine("### RunScript()");
+                _debugLogResult.AppendLine(script.Replace("\t", "    "));
+            }
             int index = 0;
             while (index < tokens.Length)
             {

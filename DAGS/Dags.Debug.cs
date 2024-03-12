@@ -5,12 +5,33 @@ namespace DAGS;
 
 public partial class Dags
 {
+    private bool _debugLogFlag = false;
+    private readonly StringBuilder _debugLogResult = new();
+
     private string[] _debugTokens = [];
     private int _debugIndex = -1;
     private bool _debugIf = false;
     private bool _debugIfCondition = false;
     private bool _debugIfAnswer = false;
 
+    public void DebugLog(string script, StringBuilder result)
+    {
+        if (string.IsNullOrWhiteSpace(script) || script.Equals(NULL_VALUE, OIC))
+        {
+            return;
+        }
+        if (_dict.ContainsKey(script))
+        {
+            script = Get(script);
+        }
+        _debugLogFlag = true;
+        _debugLogResult.Clear();
+        RunScript(script, result);
+        result.AppendLine("---");
+        result.Append(_debugLogResult);
+        _debugLogFlag = false;
+    }
+    
     public void DebugScript(string script, StringBuilder result)
     {
         if (string.IsNullOrWhiteSpace(script) || script.Equals(NULL_VALUE, OIC))

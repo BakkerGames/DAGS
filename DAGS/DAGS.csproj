@@ -16,11 +16,11 @@ A simple scripting language for handling game data in a dictionary object.</Desc
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/BakkerGames/DAGS</RepositoryUrl>
     <Title>DAGS - Data Access Game Scripts</Title>
-    <Version>1.2.3</Version>
-    <AssemblyVersion>1.2.3</AssemblyVersion>
-    <FileVersion>1.2.3</FileVersion>
+    <Version>1.2.4</Version>
+    <AssemblyVersion>1.2.4</AssemblyVersion>
+    <FileVersion>1.2.4</FileVersion>
     <PackageTags>dags;scripting;game;development;engine;text;adventure;if;interactive;fiction</PackageTags>
-    <PackageReleaseNotes>1.2.3 - Added ReadMe(), License(), Syntax(), and VersionHistory() for retriving that information.</PackageReleaseNotes>
+    <PackageReleaseNotes>1.2.4 - New DebugLog() command.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
