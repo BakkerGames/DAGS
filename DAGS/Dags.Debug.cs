@@ -14,6 +14,9 @@ public partial class Dags
     private bool _debugIfCondition = false;
     private bool _debugIfAnswer = false;
 
+    /// <summary>
+    /// Returns the full log data while processing and running the script.
+    /// </summary>
     public void DebugLog(string script, StringBuilder result)
     {
         if (string.IsNullOrWhiteSpace(script) || script.Equals(NULL_VALUE, OIC))
@@ -32,6 +35,9 @@ public partial class Dags
         _debugLogFlag = false;
     }
     
+    /// <summary>
+    /// Starts debugging a script at the top level.
+    /// </summary>
     public void DebugScript(string script, StringBuilder result)
     {
         if (string.IsNullOrWhiteSpace(script) || script.Equals(NULL_VALUE, OIC))
@@ -50,6 +56,9 @@ public partial class Dags
         DebugNext(result);
     }
 
+    /// <summary>
+    /// Performs the next debug step for the current script.
+    /// </summary>
     public void DebugNext(StringBuilder result)
     {
         if (DebugDone())
@@ -147,6 +156,9 @@ public partial class Dags
         }
     }
 
+    /// <summary>
+    /// Checks if debugging the script has completed.
+    /// </summary>
     public bool DebugDone()
     {
         return _debugIndex < 0 || _debugIndex >= _debugTokens.Length;

@@ -395,11 +395,15 @@ Queue<string> OutChannel
 
 bool ValidateDictionary(StringBuilder result)
 
->Checks that the dictionary is valid for use with DAGS. Returns all errors found. Includes checking all scripts with ValidateScript.
+>Checks that the dictionary is valid for use with DAGS. Returns all errors found. Includes checking all scripts with ValidateScript().
 
 bool ValidateScript(string script, StringBuilder result)
 
 >Checks that the script has correct syntax. Returns all errors found.
+
+bool ValidateSyntax(string script, StringBuilder result)
+
+>Checks that the script has correct syntax, but doesn't check function names. Returns all errors found.
 
 string PrettyScript(string script)
 
@@ -408,6 +412,22 @@ string PrettyScript(string script)
 string Help()
 
 >Returns a syntax listing of all DAGS commands.
+
+string ReadMe()
+
+>Returns the README.md file for this project.
+
+string License()
+
+>Returns the LICENSE.md file for this project.
+
+string Syntax()
+
+>Returns the full SYNTAX.md file for this project (this file).
+
+string VersionHistory()
+
+>Returns the VERSION.md file for this project.
 
 
 ## Debugging
@@ -425,6 +445,10 @@ DebugNext(StringBuilder result)
 bool DebugDone()
 
 >Returns True when "script" has finished.
+
+DebugLog(string script, StringBuilder result)
+
+>Separate debugging function which returns an extensive debug log for a single script or script key. Will return information on each recursive call to run the script and some intermediate information on values. Performs the changes as specified in the script.
 
 
 ## Adding new functions to DAGS
