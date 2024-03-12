@@ -15,10 +15,6 @@ public partial class Dags
             string temp2;
             bool answer;
             var token = tokens[index++];
-            if (DebugFlag)
-            {
-                result.AppendLine($"### [{index - 1}]: {token}");
-            }
             List<string> templist;
 
             // static value
@@ -63,13 +59,6 @@ public partial class Dags
 
             // get parameters
             var p = GetParameters(tokens, ref index);
-            if (DebugFlag)
-            {
-                for (int j = 0; j < p.Count; j++)
-                {
-                    result.AppendLine($"### parameter {j}: {p[j]}");
-                }
-            }
 
             // parse tokens
             switch (token)
@@ -252,6 +241,10 @@ public partial class Dags
                     // get a raw value
                     CheckParamCount(token, p, 1);
                     temp1 = Get(p[0]);
+                    if (_debugLogFlag)
+                    {
+                        _debugLogResult.AppendLine($"### @get({p[0]}) = {temp1}");
+                    }
                     result.Append(temp1);
                     return;
                 case GETARRAY:
@@ -819,7 +812,7 @@ public partial class Dags
     private void HandleIf(string[] tokens, ref int index, StringBuilder result)
     {
         // @if <conditions> @then ... [@elseif <conditions> @then ...] [<repeat>] [@else ...] @endif
-        if (CheckConditions(tokens, ref index, result))
+        if (CheckConditions(tokens, ref index))
         {
             while (!tokens[index].Equals(ELSE, OIC) &&
                    !tokens[index].Equals(ELSEIF, OIC) &&
@@ -852,11 +845,11 @@ public partial class Dags
         }
     }
 
-    private bool CheckConditions(string[] tokens, ref int index, StringBuilder result)
+    private bool CheckConditions(string[] tokens, ref int index)
     {
         try
         {
-            var answer = CheckOneCondition(tokens, ref index, result);
+            var answer = CheckOneCondition(tokens, ref index);
             while (!tokens[index].Equals(THEN, OIC))
             {
                 if (tokens[index].Equals(AND, OIC))
@@ -883,7 +876,7 @@ public partial class Dags
                 {
                     throw new SystemException($"Expected @AND or @OR but found: {tokens[index]}");
                 }
-                answer = CheckOneCondition(tokens, ref index, result);
+                answer = CheckOneCondition(tokens, ref index);
             }
             index++; // skip @then
             return answer;
@@ -894,7 +887,7 @@ public partial class Dags
         }
     }
 
-    private bool CheckOneCondition(string[] tokens, ref int index, StringBuilder result)
+    private bool CheckOneCondition(string[] tokens, ref int index)
     {
         var notFlag = false;
         if (tokens[index].Equals(NOT, OIC))
@@ -905,26 +898,11 @@ public partial class Dags
         bool answer;
         try
         {
-            if (DebugFlag)
-            {
-                result.AppendLine($"### [{index}]: {tokens[index]}");
-            }
             answer = ConvertToBool(GetOneValue(tokens, ref index));
         }
         catch (Exception)
         {
             answer = false;
-        }
-        if (DebugFlag)
-        {
-            if (notFlag)
-            {
-                result.AppendLine($"### Answer = @not {answer} = {!answer}");
-            }
-            else
-            {
-                result.AppendLine($"### Answer = {answer}");
-            }
         }
         if (notFlag) answer = !answer;
         return answer;
@@ -1025,11 +1003,14 @@ public partial class Dags
             newTokens.Append(token);
         } while (index < tokens.Length);
 
+        var saveDebugLogFlag = _debugLogFlag;
+        _debugLogFlag = false;
         for (int value = int.Parse(p[1]); value <= int.Parse(p[2]); value++)
         {
             var script = newTokens.ToString().Replace($"${p[0]}", value.ToString());
             RunScript(script, result);
         }
+        _debugLogFlag = saveDebugLogFlag;
     }
 
     private void HandleForEachKey(List<string> p, string[] tokens, ref int index, StringBuilder result)
@@ -1059,6 +1040,8 @@ public partial class Dags
             newTokens.Append(token);
         } while (index < tokens.Length);
 
+        var saveDebugLogFlag = _debugLogFlag;
+        _debugLogFlag = false;
         var keys = _dict.Keys.Where(x => x.StartsWith(p[1]));
         foreach (string key in keys)
         {
@@ -1072,6 +1055,7 @@ public partial class Dags
             var script = newTokens.ToString().Replace($"${p[0]}", value);
             RunScript(script, result);
         }
+        _debugLogFlag = saveDebugLogFlag;
     }
 
     private void HandleForEachList(List<string> p, string[] tokens, ref int index, StringBuilder result)
@@ -1100,6 +1084,9 @@ public partial class Dags
             }
             newTokens.Append(token);
         } while (index < tokens.Length);
+
+        var saveDebugLogFlag = _debugLogFlag;
+        _debugLogFlag = false;
         var valueList = _dict[p[1]].Split(',');
         foreach (var value in valueList)
         {
@@ -1110,5 +1097,6 @@ public partial class Dags
             var script = newTokens.ToString().Replace($"${p[0]}", value);
             RunScript(script, result);
         }
+        _debugLogFlag = saveDebugLogFlag;
     }
 }
