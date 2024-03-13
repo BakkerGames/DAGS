@@ -6,6 +6,9 @@ namespace DAGS;
 
 public partial class Dags
 {
+    /// <summary>
+    /// Quick reference list of DAGS commands.
+    /// </summary>
     public static string Help()
     {
         StringBuilder result = new();
@@ -121,21 +124,33 @@ public partial class Dags
         return result.ToString();
     }
 
+    /// <summary>
+    /// ReadMe text from the DAGS project.
+    /// </summary>
     public static string ReadMe()
     {
         return GetResourceText("DAGS.README.md");
     }
 
+    /// <summary>
+    /// License text from the DAGS project.
+    /// </summary>
     public static string License()
     {
         return GetResourceText("DAGS.LICENSE.md");
     }
 
+    /// <summary>
+    /// Full syntax reference document for DAGS commands.
+    /// </summary>
     public static string Syntax()
     {
         return GetResourceText("DAGS.SYNTAX.md");
     }
 
+    /// <summary>
+    /// Version history for the DAGS project.
+    /// </summary>
     public static string VersionHistory()
     {
         return GetResourceText("DAGS.VERSIONS.md");

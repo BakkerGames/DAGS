@@ -31,16 +31,66 @@ public partial class Dags
     }
 
     /// <summary>
-    /// Validates one script to make sure the syntax is correct.
+    /// Validates one script to make sure the syntax and function names are correct.
     /// </summary>
     public bool ValidateScript(string script, StringBuilder result)
     {
-        if (string.IsNullOrWhiteSpace(script))
+        if (string.IsNullOrWhiteSpace(script) || !script.TrimStart().StartsWith('@'))
+        {
+            return true;
+        }
+        if (!ValidateSyntax(script, result))
+        {
+            return false;
+        }
+
+        bool ok = true;
+        int index = 0;
+        var tokens = SplitTokens(script);
+        while (index < tokens.Length)
+        {
+            var token = tokens[index++];
+            if (token.StartsWith('@'))
+            {
+                if (KEYWORDS.Contains(token))
+                {
+                    continue;
+                }
+                if (token.EndsWith('('))
+                {
+                    var dict = GetByPrefix(token);
+                    if (dict.Count == 0)
+                    {
+                        ok = false;
+                        result.AppendLine($"Function not found: {token}");
+                    }
+                }
+                else
+                {
+                    var value = Get(token);
+                    if (value == "")
+                    {
+                        ok = false;
+                        result.AppendLine($"Function not found: {token}");
+                    }
+                }
+            }
+        }
+        return ok;
+    }
+
+    /// <summary>
+    /// Validates one script to make sure the syntax is correct.
+    /// </summary>
+    public static bool ValidateSyntax(string script, StringBuilder result)
+    {
+        if (string.IsNullOrWhiteSpace(script) || !script.TrimStart().StartsWith('@'))
         {
             return true;
         }
         try
         {
+            bool ok = true;
             var tokens = SplitTokens(script);
             int index = 0;
             int parenLevel = 0;
@@ -58,6 +108,7 @@ public partial class Dags
                 {
                     if (ifLast != THEN && ifLast != ELSE && ifLast != ENDIF)
                     {
+                        ok = false;
                         throw new SystemException($"{IF} at {index} is invalid.");
                     }
                     ifCount++;
@@ -67,6 +118,7 @@ public partial class Dags
                 {
                     if (ifLast != IF & ifLast != ELSEIF)
                     {
+                        ok = false;
                         throw new SystemException($"{THEN} at {index} is invalid.");
                     }
                     thenCount++;
@@ -76,6 +128,7 @@ public partial class Dags
                 {
                     if (ifLast != THEN && ifLast != ENDIF)
                     {
+                        ok = false;
                         throw new SystemException($"{ELSEIF} at {index} is invalid.");
                     }
                     elseifCount++;
@@ -85,6 +138,7 @@ public partial class Dags
                 {
                     if (ifLast != THEN && ifLast != ENDIF)
                     {
+                        ok = false;
                         throw new SystemException($"{ELSE} at {index} is invalid.");
                     }
                     ifLast = ELSE;
@@ -93,6 +147,7 @@ public partial class Dags
                 {
                     if (ifLast != THEN && ifLast != ELSE && ifLast != ENDIF)
                     {
+                        ok = false;
                         throw new SystemException($"{ENDIF} at {index} is invalid.");
                     }
                     endifCount++;
@@ -128,29 +183,6 @@ public partial class Dags
                     {
                         parenLevel++;
                     }
-                    if (KEYWORDS.Contains(tokens[index]))
-                    {
-                        index++;
-                        continue;
-                    }
-                    if (tokens[index].EndsWith('('))
-                    {
-                        var dict = GetByPrefix(tokens[index]);
-                        if (dict.Count == 0)
-                        {
-                            result.AppendLine($"Token not found: {tokens[index]}");
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        var value = Get(tokens[index]);
-                        if (value == "")
-                        {
-                            result.AppendLine($"Token not found: {tokens[index]}");
-                            return false;
-                        }
-                    }
                 }
                 else
                 {
@@ -163,35 +195,35 @@ public partial class Dags
             }
             if (parenLevel != 0)
             {
+                ok = false;
                 result.AppendLine("Mismatched parenthesis");
-                return false;
             }
             if (ifCount != endifCount)
             {
+                ok = false;
                 result.AppendLine($"Mismatched {IF}/{ENDIF} counts");
-                return false;
             }
             if (ifCount + elseifCount != thenCount)
             {
+                ok = false;
                 result.AppendLine($"Mismatched {IF}/{ELSEIF} vs {THEN} counts");
-                return false;
             }
             if (forLevel != 0)
             {
+                ok = false;
                 result.AppendLine($"Mismatched {FOR.Replace("(", "")}/{ENDFOR}");
-                return false;
             }
             if (forEachKeyLevel != 0)
             {
+                ok = false;
                 result.AppendLine($"Mismatched {FOREACHKEY.Replace("(", "")}/{ENDFOREACHKEY}");
-                return false;
             }
             if (forEachListLevel != 0)
             {
+                ok = false;
                 result.AppendLine($"Mismatched {FOREACHLIST.Replace("(", "")}/{ENDFOREACHLIST}");
-                return false;
             }
-            return true;
+            return ok;
         }
         catch (Exception ex)
         {
@@ -200,7 +232,9 @@ public partial class Dags
         }
     }
 
-    private readonly List<string> KEYWORDS =
+    #region Keywords
+
+    private static readonly List<string> KEYWORDS =
     [
         ABS,
         ADD,
@@ -277,4 +311,6 @@ public partial class Dags
         UPPER,
         WRITE,
     ];
+
+    #endregion
 }

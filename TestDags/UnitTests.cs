@@ -185,6 +185,14 @@ public class UnitTests
     }
 
     [Test]
+    public void TestValidateSyntaxSucceed()
+    {
+        StringBuilder result = new();
+        bool value = Dags.ValidateSyntax("@blah(key)", result);
+        Assert.That(value, Is.EqualTo(true));
+    }
+
+    [Test]
     public void Test_Abs()
     {
         Dictionary<string, string> data = [];

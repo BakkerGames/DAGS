@@ -19,3 +19,5 @@
 1.2.3 - Added ReadMe(), License(), Syntax(), and VersionHistory() for retriving that information.
 
 1.2.4 - New DebugLog() command, for tracking each step during script processing.
+
+1.2.5 - Added ValidateSyntax() for checking syntax but not function names. Return more errors during Validate routines. PrettyScript() now calls ValidateSyntax() first.

@@ -64,6 +64,12 @@ public partial class Dags(IDictionary<string, string> dict)
             return script;
         }
 
+        StringBuilder tempResult = new();
+        if (!ValidateSyntax(script, tempResult))
+        {
+            return script;
+        }
+
         StringBuilder result = new();
         int indent = 0;
         int parens = 0;
