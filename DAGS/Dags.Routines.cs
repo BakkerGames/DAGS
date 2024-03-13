@@ -99,17 +99,6 @@ public partial class Dags
         bool inQuote = false;
         bool inAtFunction = false;
         bool lastSlash = false;
-        int parenLevel = 0;
-        while (script.Contains("/*"))
-        {
-            var pos1 = script.IndexOf("/*");
-            var pos2 = script.IndexOf("*/", pos1 + 2);
-            if (pos2 < 0)
-            {
-                throw new SystemException($"Invalid comments in script: {script}");
-            }
-            script = script[..pos1].Trim() + $" {COMMENT.Replace("(x)", "(\"{script[(pos1 + 2)..pos2].Trim()}\")")} " + script[(pos2 + 2)..].Trim();
-        }
         foreach (char c in script)
         {
             if (inQuote)
@@ -149,18 +138,6 @@ public partial class Dags
                 }
                 token.Append(c);
                 continue;
-            }
-            if (c == '(')
-            {
-                parenLevel++;
-            }
-            else if (c == ')')
-            {
-                parenLevel--;
-                if (parenLevel < 0)
-                {
-                    throw new SystemException($"Mismatched parenthesis in script: {script}");
-                }
             }
             if (c == ',' || c == ')')
             {
@@ -250,10 +227,6 @@ public partial class Dags
                 result.Add(token.ToString());
             }
             token.Clear();
-        }
-        if (parenLevel != 0)
-        {
-            throw new SystemException($"Mismatched parenthesis in script: {script}");
         }
         return [.. result];
     }

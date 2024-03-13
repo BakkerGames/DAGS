@@ -64,12 +64,6 @@ public partial class Dags(IDictionary<string, string> dict)
             return script;
         }
 
-        StringBuilder tempResult = new();
-        if (!ValidateSyntax(script, tempResult))
-        {
-            return script;
-        }
-
         StringBuilder result = new();
         int indent = 0;
         int parens = 0;
@@ -114,7 +108,10 @@ public partial class Dags(IDictionary<string, string> dict)
                     {
                         result.AppendLine();
                     }
-                    if (indent > 0) result.Append(new string('\t', indent));
+                    if (indent > 0)
+                    {
+                        result.Append(new string('\t', indent));
+                    }
                 }
             }
             result.Append(s);
@@ -166,14 +163,6 @@ public partial class Dags(IDictionary<string, string> dict)
                     indent++;
                 }
             }
-        }
-        if (indent != 0)
-        {
-            throw new SystemException($"Indent mismatch, should be 0 at end of script: {indent}\n{script}");
-        }
-        if (parens != 0)
-        {
-            throw new SystemException($"Parenthesis mismatch, should be 0 at end of script: {parens}\n{script}");
         }
         return result.ToString();
     }
