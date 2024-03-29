@@ -23,3 +23,5 @@
 1.2.5 - Added ValidateSyntax() for checking syntax but not function names. Return more errors during Validate routines. PrettyScript() now calls ValidateSyntax() first.
 
 1.2.6 - Removed thrown errors from PrettyScript() and SplitTokens().
+
+1.2.7 - Null check on resource stream

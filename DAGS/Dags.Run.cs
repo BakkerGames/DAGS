@@ -141,7 +141,7 @@ public partial class Dags
                     Set(p[0], (int1 / int2).ToString());
                     return;
                 case EQ:
-                    // are values equal
+                    // are values equal (ignoring case)
                     CheckParamCount(token, p, 2);
                     if (int.TryParse(p[0], out int1) && int.TryParse(p[1], out int2))
                     {
@@ -508,7 +508,7 @@ public partial class Dags
                     Set(p[0], (int1 * int2).ToString());
                     return;
                 case NE:
-                    // are values not equal
+                    // are values not equal (ignoring case)
                     CheckParamCount(token, p, 2);
                     if (int.TryParse(p[0], out int1) && int.TryParse(p[1], out int2))
                     {
