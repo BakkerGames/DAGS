@@ -8,4 +8,4 @@ Many of the built-in functions directly access the data from the key/value dicti
 
 DAGS can be extended by creating new functions and adding them to the dictionary. They are called just like the built-in functions and are usable for any purpose.
 
-DAGS works great with GROD, a Game Resource Overlay Dictionary. GROD holds base values plus all changes in an overlay as the game is played, so changes can be saved and restored. See the GROD GitHub site for more details.
+DAGS works great with GROD, a Game Resource Overlay Dictionary. GROD holds base values plus all changes in an overlay as the game is played, so changes can be saved and restored. See the [GROD](https://github.com/BakkerGames/GROD) GitHub site for more details.
