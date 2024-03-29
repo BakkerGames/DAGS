@@ -16,11 +16,12 @@ A simple scripting language for handling game data in a dictionary object.</Desc
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/BakkerGames/DAGS</RepositoryUrl>
     <Title>DAGS - Data Access Game Scripts</Title>
-    <Version>1.2.6</Version>
-    <AssemblyVersion>1.2.6</AssemblyVersion>
-    <FileVersion>1.2.6</FileVersion>
+    <Version>1.2.7</Version>
+    <AssemblyVersion>1.2.7</AssemblyVersion>
+    <FileVersion>1.2.7</FileVersion>
     <PackageTags>dags;scripting;game;development;engine;text;adventure;if;interactive;fiction</PackageTags>
-    <PackageReleaseNotes>1.2.6 - Removed thrown errors from PrettyScript() and SplitTokens().</PackageReleaseNotes>
+    <PackageReleaseNotes>1.2.7 - Null check on resource stream</PackageReleaseNotes>
+    <AssemblyName>dags</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
