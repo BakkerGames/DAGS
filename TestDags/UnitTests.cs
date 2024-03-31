@@ -43,6 +43,20 @@ public class UnitTests
     }
 
     [Test]
+    public void TestSetScript()
+    {
+        Dictionary<string, string> data = [];
+        Dags dags = new(data);
+        var key = "abc";
+        var answer = "@comment(\"this is a comment\")";
+        var value = "\" " + answer.Replace("\"", "\\\"") + "\"";
+        StringBuilder result = new();
+        dags.RunScript($"@set({key},{value})", result);
+        dags.RunScript($"@get({key})", result);
+        Assert.That(result.ToString(), Is.EqualTo(answer));
+    }
+
+    [Test]
     public void TestSetArray()
     {
         Dictionary<string, string> data = [];
