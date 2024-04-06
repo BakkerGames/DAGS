@@ -49,7 +49,7 @@ public class UnitTests
         Dags dags = new(data);
         var key = "abc";
         var answer = "@comment(\"this is a comment\")";
-        var value = "\" " + answer.Replace("\"", "\\\"") + "\"";
+        var value = "\"" + answer.Replace("\"", "\\\"") + "\"";
         StringBuilder result = new();
         dags.RunScript($"@set({key},{value})", result);
         dags.RunScript($"@get({key})", result);
