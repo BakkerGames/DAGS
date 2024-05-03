@@ -91,7 +91,7 @@ public partial class Dags
     /// <summary>
     /// Split the script into tokens for processing
     /// </summary>
-    private static string[] SplitTokens(string script)
+    internal static string[] SplitTokens(string script)
     {
         List<string> result = [];
         StringBuilder token = new();
@@ -175,6 +175,13 @@ public partial class Dags
                     token.Append(c);
                 }
                 inToken = true;
+                continue;
+            }
+            if (c == '@')
+            {
+                result.Add(token.ToString());
+                token.Clear();
+                token.Append(c);
                 continue;
             }
             if (c == '(')
