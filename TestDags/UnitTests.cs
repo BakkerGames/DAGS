@@ -917,6 +917,15 @@ public class UnitTests
     }
 
     [Test]
+    public void Test_PrettyScript_Min()
+    {
+        var script = "@if@eq(@get(value),0)@then@write(\"zero\")@else@write(\"not zero\")@endif";
+        var expected = "@if @eq(@get(value),0) @then\r\n\t@write(\"zero\")\r\n@else\r\n\t@write(\"not zero\")\r\n@endif";
+        var actual = Dags.PrettyScript(script);
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [Test]
     public void Test_PrettyScript_Same()
     {
         var script = "@write(\"hello \\\"wonderful\\\" world.\")";

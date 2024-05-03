@@ -91,7 +91,7 @@ public partial class Dags
     /// <summary>
     /// Split the script into tokens for processing
     /// </summary>
-    internal static string[] SplitTokens(string script)
+    private static string[] SplitTokens(string script)
     {
         List<string> result = [];
         StringBuilder token = new();
