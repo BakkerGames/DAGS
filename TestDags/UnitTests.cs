@@ -963,13 +963,6 @@ public class UnitTests
     }
 
     [Test]
-    public void Test_License()
-    {
-        var helpText = Dags.License();
-        Assert.That(helpText, !Is.EqualTo(null));
-    }
-
-    [Test]
     public void Test_Syntax()
     {
         var helpText = Dags.Syntax();

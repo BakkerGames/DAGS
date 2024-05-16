@@ -33,10 +33,6 @@ A simple scripting language for handling game data in a dictionary object.</Desc
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="..\LICENSE.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </EmbeddedResource>
     <EmbeddedResource Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
