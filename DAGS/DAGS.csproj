@@ -10,7 +10,7 @@
     <Copyright>Copyright 2023-2024 Scott Bakker</Copyright>
     <Description>DAGS - Data Access Game Scripts
 A simple scripting language for handling game data in a dictionary object.</Description>
-    <PackageLicenseExpression>MIT-0</PackageLicenseExpression>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageOutputPath>..\NuGet\</PackageOutputPath>
     <PackageProjectUrl>https://github.com/BakkerGames/DAGS</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
