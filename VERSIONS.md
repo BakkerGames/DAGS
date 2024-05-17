@@ -33,3 +33,5 @@
 1.2.10 - Fixed SplitTokens
 
 1.2.11 - Add @writeline()
+
+1.2.12 - Fixed PrettyScript to handle error scripts better
