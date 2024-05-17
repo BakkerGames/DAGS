@@ -956,23 +956,9 @@ public class UnitTests
     }
 
     [Test]
-    public void Test_Readme()
-    {
-        var helpText = Dags.ReadMe();
-        Assert.That(helpText, !Is.EqualTo(null));
-    }
-
-    [Test]
     public void Test_Syntax()
     {
         var helpText = Dags.Syntax();
-        Assert.That(helpText, !Is.EqualTo(null));
-    }
-
-    [Test]
-    public void Test_VersionHistory()
-    {
-        var helpText = Dags.VersionHistory();
         Assert.That(helpText, !Is.EqualTo(null));
     }
 }
