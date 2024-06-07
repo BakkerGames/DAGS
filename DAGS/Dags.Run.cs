@@ -14,6 +14,7 @@ public partial class Dags
             string temp1;
             string temp2;
             bool answer;
+            List<string> list = [];
             var token = tokens[index++];
             List<string> templist;
 
@@ -83,12 +84,16 @@ public partial class Dags
                     {
                         throw new SystemException("List name cannot be blank");
                     }
-                    temp1 = Get(p[0]);
-                    if (string.IsNullOrEmpty(temp1))
-                        temp1 = p[1];
-                    else
-                        temp1 += "," + p[1];
-                    Set(p[0], temp1);
+                    list = ExpandList(Get(p[0]));
+                    list.Add(p[1]);
+                    Set(p[0], CollapseList(list));
+                    var testme = Get(p[0]); // TODO ### for testing
+                    //temp1 = Get(p[0]);
+                    //if (string.IsNullOrEmpty(temp1))
+                    //    temp1 = p[1];
+                    //else
+                    //    temp1 += "," + p[1];
+                    //Set(p[0], temp1);
                     return;
                 case ADDTO:
                     // add a value to an existing value
@@ -279,15 +284,20 @@ public partial class Dags
                     {
                         throw new SystemException($"Invalid (x) for list: {p[1]}");
                     }
-                    temp1 = Get(p[0]);
-                    if (temp1 != "")
+                    list = ExpandList(Get(p[0]));
+                    if (int1 <= list.Count)
                     {
-                        templist = [.. temp1.Split(',')];
-                        if (templist.Count > int1)
-                        {
-                            result.Append(UnpackItem(templist[int1]));
-                        }
+                        result.Append(list[int1]);
                     }
+                    //temp1 = Get(p[0]);
+                    //if (temp1 != "")
+                    //{
+                    //    templist = [.. temp1.Split(',')];
+                    //    if (templist.Count > int1)
+                    //    {
+                    //        result.Append(UnpackItem(templist[int1]));
+                    //    }
+                    //}
                     return;
                 case GETVALUE:
                     // get a value with script processing
@@ -327,18 +337,29 @@ public partial class Dags
                     {
                         throw new SystemException($"Invalid (x) for list: {p[1]}");
                     }
-                    temp1 = Get(p[0]);
-                    if (temp1 == "")
+                    list = ExpandList(Get(p[0]));
+                    while (int1 > list.Count)
                     {
-                        temp1 = PackItem("");
+                        list.Add("");
                     }
-                    templist = [.. temp1.Split(',')];
-                    while (templist.Count < int1)
-                    {
-                        templist.Add(PackItem(""));
-                    }
-                    templist.Insert(int1, PackItem(p[2]));
-                    Set(p[0], string.Join(',', templist));
+                    if (int1 == list.Count)
+                        list.Add(p[2]);
+                    else
+                        list.Insert(int1, p[2]);
+                    Set(p[0], CollapseList(list));
+                    var testme1 = Get(p[0]); // TODO ### for testing
+                    //temp1 = Get(p[0]);
+                    //if (temp1 == "")
+                    //{
+                    //    temp1 = PackItem("");
+                    //}
+                    //templist = [.. temp1.Split(',')];
+                    //while (templist.Count < int1)
+                    //{
+                    //    templist.Add(PackItem(""));
+                    //}
+                    //templist.Insert(int1, PackItem(p[2]));
+                    //Set(p[0], string.Join(',', templist));
                     return;
                 case ISBOOL:
                     // is value true or false?
@@ -430,16 +451,18 @@ public partial class Dags
                     {
                         throw new SystemException("List name cannot be blank");
                     }
-                    temp1 = Get(p[0]);
-                    if (string.IsNullOrEmpty(temp1))
-                    {
-                        result.Append('0');
-                    }
-                    else
-                    {
-                        templist = [.. temp1.Split(',')];
-                        result.Append(templist.Count);
-                    }
+                    list = ExpandList(Get(p[0]));
+                    result.Append(list.Count);
+                    //temp1 = Get(p[0]);
+                    //if (string.IsNullOrEmpty(temp1))
+                    //{
+                    //    result.Append('0');
+                    //}
+                    //else
+                    //{
+                    //    templist = [.. temp1.Split(',')];
+                    //    result.Append(templist.Count);
+                    //}
                     return;
                 case LOWER:
                     // lowercase value
@@ -541,16 +564,22 @@ public partial class Dags
                     {
                         throw new SystemException($"Invalid (x) for list: {p[1]}");
                     }
-                    temp1 = Get(p[0]);
-                    if (temp1 != "")
+                    list = ExpandList(Get(p[0]));
+                    if (int1 < list.Count)
                     {
-                        templist = [.. temp1.Split(',')];
-                        if (templist.Count > int1)
-                        {
-                            templist.RemoveAt(int1);
-                            Set(p[0], string.Join(',', templist));
-                        }
+                        list.RemoveAt(int1);
+                        Set(p[0], CollapseList(list));
                     }
+                    //temp1 = Get(p[0]);
+                    //if (temp1 != "")
+                    //{
+                    //    templist = [.. temp1.Split(',')];
+                    //    if (templist.Count > int1)
+                    //    {
+                    //        templist.RemoveAt(int1);
+                    //        Set(p[0], string.Join(',', templist));
+                    //    }
+                    //}
                     return;
                 case REPLACE:
                     // in value0, replace value1 with value2
@@ -616,18 +645,26 @@ public partial class Dags
                     {
                         throw new SystemException($"Invalid (x) for list: {p[1]}");
                     }
-                    temp1 = Get(p[0]);
-                    if (temp1 == "")
+                    list = ExpandList(Get(p[0]));
+                    while (int1 >= list.Count)
                     {
-                        temp1 = PackItem("");
+                        list.Add("");
                     }
-                    templist = [.. temp1.Split(',')];
-                    while (templist.Count <= int1)
-                    {
-                        templist.Add(PackItem(""));
-                    }
-                    templist[int1] = PackItem(p[2]);
-                    Set(p[0], string.Join(',', templist));
+                    list[int1] = p[2];
+                    Set(p[0], CollapseList(list));
+                    var testme2 = Get(p[0]); // TODO ### for testing
+                    //temp1 = Get(p[0]);
+                    //if (temp1 == "")
+                    //{
+                    //    temp1 = PackItem("");
+                    //}
+                    //templist = [.. temp1.Split(',')];
+                    //while (templist.Count <= int1)
+                    //{
+                    //    templist.Add(PackItem(""));
+                    //}
+                    //templist[int1] = PackItem(p[2]);
+                    //Set(p[0], string.Join(',', templist));
                     return;
                 case SETOUTCHANNEL:
                     // adds the value to the OutChannel queue

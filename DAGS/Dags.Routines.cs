@@ -257,4 +257,114 @@ public partial class Dags
             return;
         throw new SystemException($"Incorrect number of parameters: {token}({expected}) - Found: {paramList.Count}");
     }
+
+    private static List<string> ExpandList(string value)
+    {
+        List<string> result = [];
+        bool inToken = false;
+        bool inQuote = false;
+        bool lastSlash = false;
+        StringBuilder token = new();
+        value = value.Trim();
+        for (int i = 0; i < value.Length; i++)
+        {
+            char c = value[i];
+            if (i == 0 && c == '[') continue;
+            if (i == value.Length - 1 && c == ']')
+            {
+                result.Add(token.ToString());
+                token.Clear();
+                inToken = false;
+                continue;
+            }
+            if (!inQuote && (c == '[' || c == ']'))
+            {
+                throw new SystemException($"Unexpected character within list: {c}");
+            }
+            if (!inToken)
+            {
+                if (char.IsWhiteSpace(c)) continue;
+                if (c == ',')
+                {
+                    result.Add(token.ToString());
+                    token.Clear();
+                    continue;
+                }
+                inToken = true;
+                if (c == '"')
+                {
+                    inQuote = true;
+                    continue;
+                }
+            }
+            if (inQuote)
+            {
+                if (c == '\\')
+                {
+                    if (lastSlash)
+                    {
+                        token.Append(c);
+                        lastSlash = false;
+                        continue;
+                    }
+                    lastSlash = true;
+                    continue;
+                }
+                if (lastSlash)
+                {
+                    token.Append(c);
+                    lastSlash = false;
+                    continue;
+                }
+                if (c == '"')
+                {
+                    inQuote = false;
+                    inToken = false;
+                    continue;
+                }
+                token.Append(c);
+                continue;
+            }
+            if (char.IsWhiteSpace(c)) continue;
+            if (c == ',')
+            {
+                result.Add(token.ToString());
+                token.Clear();
+                inToken = false;
+                continue;
+            }
+            token.Append(c);
+        }
+        if (inToken)
+        {
+            result.Append(token.ToString());
+        }
+        return result;
+    }
+
+    private static string CollapseList(List<string> list)
+    {
+        StringBuilder result = new();
+        result.Append('[');
+        bool addComma = false;
+        foreach (string s in list)
+        {
+            if (addComma)
+                result.Append(',');
+            else
+                addComma = true;
+            if (s.Contains(',') || s.Contains('"') || s.Contains(' ') || s.Contains('\\'))
+            {
+                result.Append('"');
+                result.Append(s.Replace("\\", "\\\\").Replace("\"", "\\\""));
+                result.Append('"');
+            }
+            else
+            {
+                result.Append(s);
+            }
+        }
+        result.Append(']');
+        return result.ToString();
+    }
 }
