@@ -6,32 +6,6 @@ namespace DAGS;
 public partial class Dags
 {
     /// <summary>
-    /// Packs an item in a list or array for proper storage
-    /// </summary>
-    private static string PackItem(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            return NULL_VALUE;
-        }
-        value = value.Replace(",", "\\x2C").Replace("\r\n", "\\n").Replace("\n", "\\n");
-        return value;
-    }
-
-    /// <summary>
-    /// Unpacks an item from a list or array for normal use
-    /// </summary>
-    private static string UnpackItem(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value) || value.Equals(NULL_VALUE, OIC))
-        {
-            return "";
-        }
-        value = value.Replace("\\x2C", ",");
-        return value;
-    }
-
-    /// <summary>
     /// Converts a string to an integer, or throws an error
     /// </summary>
     private static int ConvertToInt(string value)
@@ -261,83 +235,82 @@ public partial class Dags
     private static List<string> ExpandList(string value)
     {
         List<string> result = [];
-        bool inToken = false;
         bool inQuote = false;
         bool lastSlash = false;
         StringBuilder token = new();
         value = value.Trim();
-        for (int i = 0; i < value.Length; i++)
+        var startAt = 0;
+        var endAt = value.Length;
+        if (value.StartsWith('[')) startAt++;
+        if (value.EndsWith(']')) endAt--;
+        if (startAt >= endAt)
+        {
+            return result; // empty list
+        }
+        for (int i = startAt; i < endAt; i++)
         {
             char c = value[i];
-            if (i == 0 && c == '[') continue;
-            if (i == value.Length - 1 && c == ']')
-            {
-                result.Add(token.ToString());
-                token.Clear();
-                inToken = false;
-                continue;
-            }
             if (!inQuote && (c == '[' || c == ']'))
             {
                 throw new SystemException($"Unexpected character within list: {c}");
             }
-            if (!inToken)
-            {
-                if (char.IsWhiteSpace(c)) continue;
-                if (c == ',')
-                {
-                    result.Add(token.ToString());
-                    token.Clear();
-                    continue;
-                }
-                inToken = true;
-                if (c == '"')
-                {
-                    inQuote = true;
-                    continue;
-                }
-            }
             if (inQuote)
             {
-                if (c == '\\')
+                if (c == '\\' && !lastSlash)
                 {
-                    if (lastSlash)
-                    {
-                        token.Append(c);
-                        lastSlash = false;
-                        continue;
-                    }
                     lastSlash = true;
                     continue;
                 }
                 if (lastSlash)
                 {
-                    token.Append(c);
+                    switch (c)
+                    {
+                        case 't':
+                            token.Append('\t');
+                            break;
+                        case 'n':
+                            token.Append('\n');
+                            break;
+                        case 'r':
+                            token.Append('\r');
+                            break;
+                        default:
+                            token.Append(c);
+                            break;
+                    }
                     lastSlash = false;
                     continue;
                 }
                 if (c == '"')
                 {
                     inQuote = false;
-                    inToken = false;
                     continue;
                 }
                 token.Append(c);
                 continue;
             }
-            if (char.IsWhiteSpace(c)) continue;
             if (c == ',')
             {
-                result.Add(token.ToString());
+                if (token.Length >= 2 && token[0] == '"' && token[^1] == '"')
+                {
+                    result.Add(token.ToString()[1..^1]);
+                }
+                else
+                {
+                    result.Add(token.ToString());
+                }
                 token.Clear();
-                inToken = false;
                 continue;
             }
             token.Append(c);
         }
-        if (inToken)
+        if (token.Length >= 2 && token[0] == '"' && token[^1] == '"')
         {
-            result.Append(token.ToString());
+            result.Add(token.ToString()[1..^1]);
+        }
+        else
+        {
+            result.Add(token.ToString());
         }
         return result;
     }
@@ -353,15 +326,39 @@ public partial class Dags
                 result.Append(',');
             else
                 addComma = true;
-            if (s.Contains(',') || s.Contains('"') || s.Contains(' ') || s.Contains('\\'))
+            var quote = false;
+            foreach (char c in s)
+            {
+                switch (c)
+                {
+                    case ',':
+                    case '"':
+                    case ' ':
+                    case '\t':
+                    case '\n':
+                    case '\r':
+                    case '\\':
+                    case '[':
+                    case ']':
+                        quote = true;
+                        break;
+                }
+                if (quote)
+                    break;
+            }
+            var value = s;
+            if (quote)
             {
                 result.Append('"');
-                result.Append(s.Replace("\\", "\\\\").Replace("\"", "\\\""));
+                value = value
+                    .Replace("\\", "\\\\")
+                    .Replace("\"", "\\\"");
+                result.Append(value);
                 result.Append('"');
             }
-            else
+            else if (value != NULL_VALUE)
             {
-                result.Append(s);
+                result.Append(value);
             }
         }
         result.Append(']');

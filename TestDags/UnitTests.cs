@@ -88,7 +88,7 @@ public class UnitTests
         Dictionary<string, string> data = [];
         Dags dags = new(data);
         var key = "abc";
-        var value = "";
+        var value = "123";
         StringBuilder result = new();
         dags.RunScript($"@setarray({key},2,3,{value})", result);
         dags.RunScript($"@cleararray({key})", result);
@@ -118,6 +118,19 @@ public class UnitTests
         var value = "";
         StringBuilder result = new();
         dags.RunScript($"@setlist({key},1,{value})", result);
+        dags.RunScript($"@getlist({key},1)", result);
+        Assert.That(result.ToString(), Is.EqualTo(value));
+    }
+
+    [Test]
+    public void TestSetList_TabCRLF()
+    {
+        Dictionary<string, string> data = [];
+        Dags dags = new(data);
+        var key = "abc";
+        var value = "abc\t\r\n123";
+        StringBuilder result = new();
+        dags.RunScript($"@setlist({key},1,\"{value}\")", result);
         dags.RunScript($"@getlist({key},1)", result);
         Assert.That(result.ToString(), Is.EqualTo(value));
     }

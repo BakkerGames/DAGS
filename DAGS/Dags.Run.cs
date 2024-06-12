@@ -16,7 +16,6 @@ public partial class Dags
             bool answer;
             List<string> list = [];
             var token = tokens[index++];
-            List<string> templist;
 
             // static value
             if (!token.StartsWith('@'))
@@ -87,13 +86,6 @@ public partial class Dags
                     list = ExpandList(Get(p[0]));
                     list.Add(p[1]);
                     Set(p[0], CollapseList(list));
-                    var testme = Get(p[0]); // TODO ### for testing
-                    //temp1 = Get(p[0]);
-                    //if (string.IsNullOrEmpty(temp1))
-                    //    temp1 = p[1];
-                    //else
-                    //    temp1 += "," + p[1];
-                    //Set(p[0], temp1);
                     return;
                 case ADDTO:
                     // add a value to an existing value
@@ -108,13 +100,17 @@ public partial class Dags
                     var keys = _dict.Keys.Where(x => x.StartsWith($"{p[0]}."));
                     foreach (string key in keys)
                     {
-                        Set(key, "");
+                        Set(key, "[]");
                     }
                     return;
                 case CLEARLIST:
                     // clears the named list
                     CheckParamCount(token, p, 1);
-                    Set(p[0], "");
+                    if (p[0] == "")
+                    {
+                        throw new SystemException("List name cannot be blank");
+                    }
+                    Set(p[0], "[]");
                     return;
                 case COMMENT:
                     // comment for script documentation
@@ -253,7 +249,7 @@ public partial class Dags
                     result.Append(temp1);
                     return;
                 case GETARRAY:
-                    // get a name,x,y value
+                    // get a name,y,x value
                     CheckParamCount(token, p, 3);
                     if (p[0] == "")
                     {
@@ -261,16 +257,12 @@ public partial class Dags
                     }
                     if (!int.TryParse(p[1], out int1) || !int.TryParse(p[2], out int2) || int1 < 0 || int2 < 0)
                     {
-                        throw new SystemException($"Invalid (x,y) for array: ({p[1]},{p[2]})");
+                        throw new SystemException($"Invalid (y,x) for array: ({p[1]},{p[2]})");
                     }
-                    temp1 = Get($"{p[0]}.{int1}");
-                    if (temp1 != "")
+                    list = ExpandList(Get($"{p[0]}.{int1}"));
+                    if (int2 <= list.Count)
                     {
-                        templist = [.. temp1.Split(',')];
-                        if (templist.Count > int2)
-                        {
-                            result.Append(UnpackItem(templist[int2]));
-                        }
+                        result.Append(list[int2]);
                     }
                     return;
                 case GETLIST:
@@ -289,15 +281,6 @@ public partial class Dags
                     {
                         result.Append(list[int1]);
                     }
-                    //temp1 = Get(p[0]);
-                    //if (temp1 != "")
-                    //{
-                    //    templist = [.. temp1.Split(',')];
-                    //    if (templist.Count > int1)
-                    //    {
-                    //        result.Append(UnpackItem(templist[int1]));
-                    //    }
-                    //}
                     return;
                 case GETVALUE:
                     // get a value with script processing
@@ -453,16 +436,6 @@ public partial class Dags
                     }
                     list = ExpandList(Get(p[0]));
                     result.Append(list.Count);
-                    //temp1 = Get(p[0]);
-                    //if (string.IsNullOrEmpty(temp1))
-                    //{
-                    //    result.Append('0');
-                    //}
-                    //else
-                    //{
-                    //    templist = [.. temp1.Split(',')];
-                    //    result.Append(templist.Count);
-                    //}
                     return;
                 case LOWER:
                     // lowercase value
@@ -570,16 +543,6 @@ public partial class Dags
                         list.RemoveAt(int1);
                         Set(p[0], CollapseList(list));
                     }
-                    //temp1 = Get(p[0]);
-                    //if (temp1 != "")
-                    //{
-                    //    templist = [.. temp1.Split(',')];
-                    //    if (templist.Count > int1)
-                    //    {
-                    //        templist.RemoveAt(int1);
-                    //        Set(p[0], string.Join(',', templist));
-                    //    }
-                    //}
                     return;
                 case REPLACE:
                     // in value0, replace value1 with value2
@@ -611,7 +574,7 @@ public partial class Dags
                     }
                     return;
                 case SETARRAY:
-                    // set a name,x,y,value
+                    // set a name,y,x,value
                     CheckParamCount(token, p, 4);
                     if (p[0] == "")
                     {
@@ -619,20 +582,15 @@ public partial class Dags
                     }
                     if (!int.TryParse(p[1], out int1) || !int.TryParse(p[2], out int2) || int1 < 0 || int2 < 0)
                     {
-                        throw new SystemException($"Invalid (x,y) for array: ({p[1]},{p[2]})");
+                        throw new SystemException($"Invalid (y,x) for array: ({p[1]},{p[2]})");
                     }
-                    temp1 = Get($"{p[0]}.{int1}");
-                    if (temp1 == "")
+                    list = ExpandList(Get($"{p[0]}.{int1}"));
+                    while (int2 >= list.Count)
                     {
-                        temp1 = PackItem("");
+                        list.Add("");
                     }
-                    templist = [.. temp1.Split(',')];
-                    while (templist.Count <= int2)
-                    {
-                        templist.Add(PackItem(""));
-                    }
-                    templist[int2] = PackItem(p[3]);
-                    Set($"{p[0]}.{int1}", string.Join(',', templist));
+                    list[int2] = p[3];
+                    Set($"{p[0]}.{int1}", CollapseList(list));
                     return;
                 case SETLIST:
                     // set a name,x,value
@@ -652,19 +610,6 @@ public partial class Dags
                     }
                     list[int1] = p[2];
                     Set(p[0], CollapseList(list));
-                    var testme2 = Get(p[0]); // TODO ### for testing
-                    //temp1 = Get(p[0]);
-                    //if (temp1 == "")
-                    //{
-                    //    temp1 = PackItem("");
-                    //}
-                    //templist = [.. temp1.Split(',')];
-                    //while (templist.Count <= int1)
-                    //{
-                    //    templist.Add(PackItem(""));
-                    //}
-                    //templist[int1] = PackItem(p[2]);
-                    //Set(p[0], string.Join(',', templist));
                     return;
                 case SETOUTCHANNEL:
                     // adds the value to the OutChannel queue
@@ -1147,7 +1092,7 @@ public partial class Dags
 
         var saveDebugLogFlag = _debugLogFlag;
         _debugLogFlag = false;
-        var valueList = _dict[p[1]].Split(',');
+        var valueList = ExpandList(_dict[p[1]]);
         foreach (var value in valueList)
         {
             if (value == "" || value == NULL_VALUE)

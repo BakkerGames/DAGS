@@ -35,3 +35,5 @@
 1.2.11 - Add @writeline()
 
 1.2.12 - Fixed PrettyScript to handle error scripts better
+
+1.2.13 - Changed lists and arrays to use [,] syntax
