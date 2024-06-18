@@ -330,19 +330,6 @@ public partial class Dags
                     else
                         list.Insert(int1, p[2]);
                     Set(p[0], CollapseList(list));
-                    var testme1 = Get(p[0]); // TODO ### for testing
-                    //temp1 = Get(p[0]);
-                    //if (temp1 == "")
-                    //{
-                    //    temp1 = PackItem("");
-                    //}
-                    //templist = [.. temp1.Split(',')];
-                    //while (templist.Count < int1)
-                    //{
-                    //    templist.Add(PackItem(""));
-                    //}
-                    //templist.Insert(int1, PackItem(p[2]));
-                    //Set(p[0], string.Join(',', templist));
                     return;
                 case ISBOOL:
                     // is value true or false?

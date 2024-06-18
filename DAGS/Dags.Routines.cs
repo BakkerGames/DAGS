@@ -232,6 +232,9 @@ public partial class Dags
         throw new SystemException($"Incorrect number of parameters: {token}({expected}) - Found: {paramList.Count}");
     }
 
+    /// <summary>
+    /// Expand a value containing a list into a list of strings
+    /// </summary>
     private static List<string> ExpandList(string value)
     {
         List<string> result = [];
@@ -315,6 +318,9 @@ public partial class Dags
         return result;
     }
 
+    /// <summary>
+    /// Compress a list of strings into a value
+    /// </summary>
     private static string CollapseList(List<string> list)
     {
         StringBuilder result = new();
