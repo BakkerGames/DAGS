@@ -37,3 +37,5 @@
 1.2.12 - Fixed PrettyScript to handle error scripts better
 
 1.2.13 - Changed lists and arrays to use [,] syntax
+
+1.2.14 - Made ExpandList() and CollapseList() public
