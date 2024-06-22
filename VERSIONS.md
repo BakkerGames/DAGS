@@ -39,3 +39,5 @@
 1.2.13 - Changed lists and arrays to use [,] syntax
 
 1.2.14 - Made ExpandList() and CollapseList() public
+
+1.2.15 - Changed arrays to single nested values
