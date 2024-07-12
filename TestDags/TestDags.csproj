@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DAGS\DAGS.csproj" />
+    <ProjectReference Include="..\DAGS.csproj" />
   </ItemGroup>
 
 </Project>

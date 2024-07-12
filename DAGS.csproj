@@ -16,11 +16,11 @@ A simple scripting language for handling game data in a dictionary object.</Desc
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/BakkerGames/DAGS</RepositoryUrl>
     <Title>DAGS - Data Access Game Scripts</Title>
-    <Version>1.2.15</Version>
-    <AssemblyVersion>1.2.15</AssemblyVersion>
-    <FileVersion>1.2.15</FileVersion>
+    <Version>2.0.0</Version>
+    <AssemblyVersion>2.0.0</AssemblyVersion>
+    <FileVersion>2.0.0</FileVersion>
     <PackageTags>dags;scripting;game;development;engine;text;adventure;if;interactive;fiction</PackageTags>
-    <PackageReleaseNotes>1.2.15 - Changed arrays to single nested values</PackageReleaseNotes>
+    <PackageReleaseNotes>2.0.0 - Switch to git submodule layout</PackageReleaseNotes>
     <AssemblyName>dags</AssemblyName>
   </PropertyGroup>
 
@@ -31,6 +31,17 @@ A simple scripting language for handling game data in a dictionary object.</Desc
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>embedded</DebugType>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="TestDags\**" />
+    <EmbeddedResource Remove="TestDags\**" />
+    <None Remove="TestDags\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove=".gitattributes" />
+    <None Remove=".gitignore" />
+  </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="SYNTAX.md">

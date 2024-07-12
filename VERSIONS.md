@@ -41,3 +41,5 @@
 1.2.14 - Made ExpandList() and CollapseList() public
 
 1.2.15 - Changed arrays to single nested values
+
+2.0.0 - Switch to git submodule layout
