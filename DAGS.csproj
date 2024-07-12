@@ -20,7 +20,7 @@ A simple scripting language for handling game data in a dictionary object.</Desc
     <AssemblyVersion>2.0.0</AssemblyVersion>
     <FileVersion>2.0.0</FileVersion>
     <PackageTags>dags;scripting;game;development;engine;text;adventure;if;interactive;fiction</PackageTags>
-    <PackageReleaseNotes>2.0.0 - Switch to git submodule layout</PackageReleaseNotes>
+    <PackageReleaseNotes>2.0.0 - Switch to split project layout</PackageReleaseNotes>
     <AssemblyName>dags</AssemblyName>
   </PropertyGroup>
 

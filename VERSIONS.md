@@ -42,4 +42,4 @@
 
 1.2.15 - Changed arrays to single nested values
 
-2.0.0 - Switch to git submodule layout
+2.0.0 - Switch to split project layout
