@@ -38,7 +38,12 @@ public partial class Dags
                         // get the next value on the InChannel queue
                         if (InChannel.Count > 0)
                         {
-                            result.Append(InChannel.Dequeue());
+                            var inValue = InChannel.Dequeue();
+                            if (inValue.StartsWith('@'))
+                            {
+                                throw new SystemException($"Invalid value on InChannel: {inValue}");
+                            }
+                            result.Append(inValue);
                         }
                         return;
                     case NL:
