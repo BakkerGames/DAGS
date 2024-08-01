@@ -30,7 +30,6 @@ public static class Constants
     public const string EQ = "@eq(";
     public const string EXEC = "@exec(";
     public const string FALSE = "@false(";
-    public const string FALSEDATA = "@falsedata(";
     public const string FOR = "@for(";
     public const string FOREACHKEY = "@foreachkey(";
     public const string FOREACHLIST = "@foreachlist(";
@@ -45,7 +44,6 @@ public static class Constants
     public const string IF = "@if";
     public const string INSERTATLIST = "@insertatlist(";
     public const string ISBOOL = "@isbool(";
-    public const string ISBOOLDATA = "@isbooldata(";
     public const string ISNULL = "@isnull(";
     public const string ISNULLDATA = "@isnulldata(";
     public const string ISNUMBER = "@isnumber(";
@@ -81,7 +79,6 @@ public static class Constants
     public const string THEN = "@then";
     public const string TRIM = "@trim(";
     public const string TRUE = "@true(";
-    public const string TRUEDATA = "@truedata(";
     public const string UPPER = "@upper(";
     public const string WRITE = "@write(";
     public const string WRITELINE = "@writeline(";

@@ -191,20 +191,6 @@ public partial class Dags
                     }
                     result.Append(ConvertToBoolString(answer));
                     return;
-                case FALSEDATA:
-                    // is the raw value false (or falsey). false if error.
-                    CheckParamCount(token, p, 1);
-                    temp1 = Get(p[0]);
-                    try
-                    {
-                        answer = !ConvertToBool(temp1);
-                    }
-                    catch (Exception)
-                    {
-                        answer = false;
-                    }
-                    result.Append(ConvertToBoolString(answer));
-                    return;
                 case FOR:
                     // begins a @for block
                     CheckParamCount(token, p, 3);
@@ -339,21 +325,6 @@ public partial class Dags
                     try
                     {
                         _ = ConvertToBool(p[0]);
-                        answer = true;
-                    }
-                    catch (Exception)
-                    {
-                        answer = false;
-                    }
-                    result.Append(ConvertToBoolString(answer));
-                    return;
-                case ISBOOLDATA:
-                    // is raw value true or false?
-                    CheckParamCount(token, p, 1);
-                    temp1 = Get(p[0]);
-                    try
-                    {
-                        _ = ConvertToBool(temp1);
                         answer = true;
                     }
                     catch (Exception)
@@ -667,20 +638,6 @@ public partial class Dags
                     try
                     {
                         answer = ConvertToBool(p[0]);
-                    }
-                    catch (Exception)
-                    {
-                        answer = false;
-                    }
-                    result.Append(ConvertToBoolString(answer));
-                    return;
-                case TRUEDATA:
-                    // is raw value true (or truthy). false if error.
-                    CheckParamCount(token, p, 1);
-                    temp1 = Get(p[0]);
-                    try
-                    {
-                        answer = ConvertToBool(temp1);
                     }
                     catch (Exception)
                     {

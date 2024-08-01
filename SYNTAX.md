@@ -10,11 +10,11 @@ Keys and values as function parameters can be text values or strings built out o
 
 "Raw value" refers to the value from the dictionary with no processing. Everything else will run "value" as a script if it starts with "@" and returns the final result.
 
-Some functions take keys and operate directly on the dictionary, while other take values and operate on those values. Be careful of this, as `@true(key)` is always false (with no error, as non-boolean values are false) while `@true(@get(key))` gets the correct answer. `@truedata(key)` will work unless "key" contains a script that returns true or false.
+Some functions take keys and operate directly on the dictionary, while other take values and operate on those values. Be careful of this! `@true(key)` doesn't check the value, but is always false (the string "key" isn't truthy), while `@true(@get(key))` gets the correct answer from the value.
 
 At times it might be necessary to add quotes around script values so they don't execute immediately. `@set(key,value)` is one such situation, when the value is to be stored as a script and not the answer. The value will need to be surrounded by quotes and internal quotes escaped.
 
-Scripts are processed by Dags.RunScript(script, result), with "result" a StringBuilder parameter that will return all output.
+Scripts are processed by Dags.RunScript(script, result), with `result` a StringBuilder parameter that will return all output.
 
 There is an "InChannel" queue and an "OutChannel" queue which are used for passing string values between DAGS and the calling program. Strings placed on the queues would be handled by the other end as appropriate.
 
@@ -203,10 +203,6 @@ Any functions which returns truthy or falsey values may be defined and used as "
 
 >Returns true if "value" is falsey. Returns false if the value is truthy or isn't boolean.
 
-@falsedata(key)
-
->Returns true if the raw value for "key" is falsey. Returns false if the value is truthy or isn't boolean.
-
 @ge(value1,value2)
 
 >Checks if integer "value1" is greater than or equal to integer "value2". Error if not integers.
@@ -218,10 +214,6 @@ Any functions which returns truthy or falsey values may be defined and used as "
 @isbool(value)
 
 >Returns true if "value" is truthy or falsey.
-
-@isbooldata(key)
-
->Returns true if the raw value for "key" is truthy or falsey.
 
 @isnull(value)
 
@@ -266,10 +258,6 @@ Any functions which returns truthy or falsey values may be defined and used as "
 @true(value)
 
 >Returns true if "value" is truthy. Returns false if the value is falsey or isn't boolean.
-
-@truedata(key)
-
->Returns true if the raw value for "key" is truthy. Returns false if the value is falsey or isn't boolean.
 
 
 ## Condition Connectors/Modifiers

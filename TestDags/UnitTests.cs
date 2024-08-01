@@ -345,26 +345,6 @@ public class UnitTests
     }
 
     [Test]
-    public void Test_FalseData()
-    {
-        Dictionary<string, string> data = [];
-        Dags dags = new(data);
-        StringBuilder result = new();
-        result.Clear();
-        dags.RunScript("@set(test.value,\"\") @write(@falsedata(test.value))", result);
-        Assert.That(result.ToString(), Is.EqualTo("true"));
-        result.Clear();
-        dags.RunScript("@set(test.value,false) @write(@falsedata(test.value))", result);
-        Assert.That(result.ToString(), Is.EqualTo("true"));
-        result.Clear();
-        dags.RunScript("@set(test.value,1) @write(@falsedata(test.value))", result);
-        Assert.That(result.ToString(), Is.EqualTo("false"));
-        result.Clear();
-        dags.RunScript("@set(test.value,abc) @write(@falsedata(test.value))", result);
-        Assert.That(result.ToString(), Is.EqualTo("false"));
-    }
-
-    [Test]
     public void Test_For()
     {
         Dictionary<string, string> data = [];
@@ -524,23 +504,6 @@ public class UnitTests
         Assert.That(result.ToString(), Is.EqualTo("true"));
         result.Clear();
         dags.RunScript("@write(@isbool(notboolean))", result);
-        Assert.That(result.ToString(), Is.EqualTo("false"));
-    }
-
-    [Test]
-    public void Test_IsBoolData()
-    {
-        Dictionary<string, string> data = [];
-        Dags dags = new(data);
-        StringBuilder result = new();
-        result.Clear();
-        dags.RunScript("@set(test.value,0) @write(@isbooldata(test.value))", result);
-        Assert.That(result.ToString(), Is.EqualTo("true"));
-        result.Clear();
-        dags.RunScript("@set(test.value,1) @write(@isbooldata(test.value))", result);
-        Assert.That(result.ToString(), Is.EqualTo("true"));
-        result.Clear();
-        dags.RunScript("@set(test.value,notboolean) @write(@isbooldata(test.value))", result);
         Assert.That(result.ToString(), Is.EqualTo("false"));
     }
 
@@ -885,20 +848,6 @@ public class UnitTests
         Assert.That(result.ToString(), Is.EqualTo("false"));
         result.Clear();
         dags.RunScript("@write(@true(1))", result);
-        Assert.That(result.ToString(), Is.EqualTo("true"));
-    }
-
-    [Test]
-    public void Test_TrueData()
-    {
-        Dictionary<string, string> data = [];
-        Dags dags = new(data);
-        StringBuilder result = new();
-        result.Clear();
-        dags.RunScript("@set(test.value,0) @write(@truedata(test.value))", result);
-        Assert.That(result.ToString(), Is.EqualTo("false"));
-        result.Clear();
-        dags.RunScript("@set(test.value,1) @write(@truedata(test.value))", result);
         Assert.That(result.ToString(), Is.EqualTo("true"));
     }
 
