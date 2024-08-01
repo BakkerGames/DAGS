@@ -21,11 +21,11 @@ There is an "InChannel" queue and an "OutChannel" queue which are used for passi
 
 ## Constants
 
-"null"
+null
 
-"true"
+true
 
-"false"
+false
 
 
 ## Statements
@@ -425,28 +425,7 @@ string Help()
 
 string Syntax()
 
->Returns the full SYNTAX.md file for this project (this file).
-
-
-## Debugging
-
-Debugging is available in a limited form. It is for stepping through a script and figuring out issues. It steps through each statement and returns each result separately. It will step through each condition in an "@if" block but only at the top level, not for nested "@if"s. It does perform any changes on the data. The calling program starts with DebugScript() and then calls DebugNext() until done.
-
-DebugScript(string script, StringBuilder result)
-
->Starts debugging the specified "script". If "script" doesn't start with "@" then it is used as a key to get the script value. Performs the first step and returns the result.
-
-DebugNext(StringBuilder result)
-
->Performs the next step in "script" and returns the results. Returns "Debug done." if at the end.
-
-bool DebugDone()
-
->Returns True when "script" has finished.
-
-DebugLog(string script, StringBuilder result)
-
->Separate debugging function which returns an extensive debug log for a single script or script key. Will return information on each recursive call to run the script and some intermediate information on values. Performs the changes as specified in the script.
+>Returns the full SYNTAX.md file for DAGS (this file).
 
 
 ## Adding new functions to DAGS
@@ -465,12 +444,12 @@ If you are adding functions which will be conditions in an `@if` statement, be s
 
 Examples:
 
-@quitmsg = Are you sure you want to quit?
+"@quitmsg": "Are you sure you want to quit?"
 
-@score = @write("You have a score of ",@get(value.score)," out of ",@get(value.maxscore)," points.") @nl @nl
+"@score": "@write(\"You have a score of \",@get(value.score),\" out of \",@get(value.maxscore),\" points.\") @nl @nl";
 
-@moveto(x,y) = @comment("moves the item to a location") @set(item.$x.location,$y)
+"@moveto(x,y)": "@comment(\"moves the item to a location\") @set(item.$x.location,$y)";
 
-@unknown(x) = @write("I don't understand \"$x\".\n")
+"@unknown(x)": "@write(\"I don't understand \",$x,\".\\n\")";
 
-@isnegative(x) = @if @lt($x,0) @then @write(\"true\") @else @write(\"false\") @endif
+"@isnegative(x)": "@if @lt($x,0) @then @write(\"true\") @else @write(\"false\") @endif";

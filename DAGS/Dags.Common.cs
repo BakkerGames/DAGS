@@ -1,4 +1,6 @@
-﻿namespace DAGS;
+﻿using System.Text;
+
+namespace DAGS;
 
 public partial class Dags
 {

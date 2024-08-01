@@ -248,10 +248,6 @@ public partial class Dags
                     // get a raw value
                     CheckParamCount(token, p, 1);
                     temp1 = Get(p[0]);
-                    if (_debugLogFlag)
-                    {
-                        _debugLogResult.AppendLine($"### @get({p[0]}) = {temp1}");
-                    }
                     result.Append(temp1);
                     return;
                 case GETARRAY:
@@ -1005,14 +1001,11 @@ public partial class Dags
             newTokens.Append(token);
         } while (index < tokens.Length);
 
-        var saveDebugLogFlag = _debugLogFlag;
-        _debugLogFlag = false;
         for (int value = int.Parse(p[1]); value <= int.Parse(p[2]); value++)
         {
             var script = newTokens.ToString().Replace($"${p[0]}", value.ToString());
             RunScript(script, result);
         }
-        _debugLogFlag = saveDebugLogFlag;
     }
 
     private void HandleForEachKey(List<string> p, string[] tokens, ref int index, StringBuilder result)
@@ -1042,8 +1035,6 @@ public partial class Dags
             newTokens.Append(token);
         } while (index < tokens.Length);
 
-        var saveDebugLogFlag = _debugLogFlag;
-        _debugLogFlag = false;
         var keys = _dict.Keys.Where(x => x.StartsWith(p[1]));
         foreach (string key in keys)
         {
@@ -1057,7 +1048,6 @@ public partial class Dags
             var script = newTokens.ToString().Replace($"${p[0]}", value);
             RunScript(script, result);
         }
-        _debugLogFlag = saveDebugLogFlag;
     }
 
     private void HandleForEachList(List<string> p, string[] tokens, ref int index, StringBuilder result)
@@ -1087,8 +1077,6 @@ public partial class Dags
             newTokens.Append(token);
         } while (index < tokens.Length);
 
-        var saveDebugLogFlag = _debugLogFlag;
-        _debugLogFlag = false;
         var valueList = ExpandList(_dict[p[1]]);
         foreach (var value in valueList)
         {
@@ -1099,6 +1087,5 @@ public partial class Dags
             var script = newTokens.ToString().Replace($"${p[0]}", value);
             RunScript(script, result);
         }
-        _debugLogFlag = saveDebugLogFlag;
     }
 }

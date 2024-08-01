@@ -35,12 +35,6 @@ public partial class Dags(IDictionary<string, string> dict)
         try
         {
             var tokens = SplitTokens(script);
-            if (_debugLogFlag)
-            {
-                _debugLogResult.AppendLine();
-                _debugLogResult.AppendLine("### RunScript()");
-                _debugLogResult.AppendLine(script.Replace("\t", "    "));
-            }
             int index = 0;
             while (index < tokens.Length)
             {
@@ -262,6 +256,9 @@ public partial class Dags(IDictionary<string, string> dict)
         return result.ToString();
     }
 
+    /// <summary>
+    /// Expand a value containing an array into a list of list of strings
+    /// </summary>
     public static List<List<string>> ExpandArray(string list)
     {
         List<List<string>> result = [];
@@ -284,6 +281,9 @@ public partial class Dags(IDictionary<string, string> dict)
         return result;
     }
 
+    /// <summary>
+    /// Compress a list of list of strings into a value
+    /// </summary>
     public static string CollapseArray(List<List<string>> list)
     {
         StringBuilder result = new();
