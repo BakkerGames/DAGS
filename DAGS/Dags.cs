@@ -50,8 +50,9 @@ public partial class Dags(IDictionary<string, string> dict)
 
     /// <summary>
     /// Format the script with line breaks and indents.
+    /// Parameter "indent" adds one extra tab at the beginning of each line.
     /// </summary>
-    public static string PrettyScript(string script)
+    public static string PrettyScript(string script, bool indent = false)
     {
         if (!script.TrimStart().StartsWith('@'))
         {
@@ -59,7 +60,8 @@ public partial class Dags(IDictionary<string, string> dict)
         }
 
         StringBuilder result = new();
-        int indent = 0;
+        int startIndent = indent ? 1 : 0;
+        int indentLevel = startIndent;
         int parens = 0;
         bool ifLine = false;
         bool forLine = false;
@@ -72,22 +74,22 @@ public partial class Dags(IDictionary<string, string> dict)
             switch (s)
             {
                 case ELSEIF:
-                    if (indent > 0) indent--;
+                    if (indentLevel > startIndent) indentLevel--;
                     break;
                 case ELSE:
-                    if (indent > 0) indent--;
+                    if (indentLevel > startIndent) indentLevel--;
                     break;
                 case ENDIF:
-                    if (indent > 0) indent--;
+                    if (indentLevel > startIndent) indentLevel--;
                     break;
                 case ENDFOR:
-                    if (indent > 0) indent--;
+                    if (indentLevel > startIndent) indentLevel--;
                     break;
                 case ENDFOREACHKEY:
-                    if (indent > 0) indent--;
+                    if (indentLevel > startIndent) indentLevel--;
                     break;
                 case ENDFOREACHLIST:
-                    if (indent > 0) indent--;
+                    if (indentLevel > startIndent) indentLevel--;
                     break;
             }
             if (parens == 0)
@@ -102,9 +104,9 @@ public partial class Dags(IDictionary<string, string> dict)
                     {
                         result.AppendLine();
                     }
-                    if (indent > 0)
+                    if (indentLevel > 0)
                     {
-                        result.Append(new string('\t', indent));
+                        result.Append(new string('\t', indentLevel));
                     }
                 }
             }
@@ -118,10 +120,10 @@ public partial class Dags(IDictionary<string, string> dict)
                     ifLine = true;
                     break;
                 case ELSE:
-                    indent++;
+                    indentLevel++;
                     break;
                 case THEN:
-                    indent++;
+                    indentLevel++;
                     ifLine = false;
                     break;
                 case FOR:
@@ -144,17 +146,17 @@ public partial class Dags(IDictionary<string, string> dict)
                 if (forLine && parens == 0)
                 {
                     forLine = false;
-                    indent++;
+                    indentLevel++;
                 }
                 else if (forEachKeyLine && parens == 0)
                 {
                     forEachKeyLine = false;
-                    indent++;
+                    indentLevel++;
                 }
                 else if (forEachListLine && parens == 0)
                 {
                     forEachListLine = false;
-                    indent++;
+                    indentLevel++;
                 }
             }
         }
