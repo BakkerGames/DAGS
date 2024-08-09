@@ -375,7 +375,7 @@ Note that the array values are referenced by row (y) first and then column (x), 
 
 ## Public Interface
 
-new Dags(IDictionary<string, string> dictionary)
+new Dags(IDictionary<string, string?> dictionary)
 
 >Create a new DAGS object connected to an existing dictionary.
 

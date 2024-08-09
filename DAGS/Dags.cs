@@ -6,7 +6,7 @@ namespace DAGS;
 /// <summary>
 /// Generate a DAGS script object and assign its dictionary.
 /// </summary>
-public partial class Dags(IDictionary<string, string> dict)
+public partial class Dags(IDictionary<string, string?> dict)
 {
     /// <summary>
     /// Receives metadata from the calling program, such as text input.

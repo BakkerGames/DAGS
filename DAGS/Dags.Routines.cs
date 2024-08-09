@@ -82,7 +82,7 @@ public partial class Dags
                     token.Append(c);
                     if (inAtFunction)
                     {
-                        result.Add(token.ToString().ToLower());
+                        result.Add(token.ToString());
                         inAtFunction = false;
                     }
                     else
@@ -119,7 +119,7 @@ public partial class Dags
                 {
                     if (inAtFunction)
                     {
-                        result.Add(token.ToString().ToLower());
+                        result.Add(token.ToString());
                         inAtFunction = false;
                     }
                     else
@@ -165,7 +165,7 @@ public partial class Dags
                     token.Append(c);
                     if (inAtFunction)
                     {
-                        result.Add(token.ToString().ToLower());
+                        result.Add(token.ToString());
                         inAtFunction = false;
                     }
                     else
@@ -183,7 +183,7 @@ public partial class Dags
                 {
                     if (inAtFunction)
                     {
-                        result.Add(token.ToString().ToLower());
+                        result.Add(token.ToString());
                         inAtFunction = false;
                     }
                     else
@@ -199,14 +199,7 @@ public partial class Dags
         }
         if (token.Length > 0)
         {
-            if (inAtFunction)
-            {
-                result.Add(token.ToString().ToLower());
-            }
-            else
-            {
-                result.Add(token.ToString());
-            }
+            result.Add(token.ToString());
             token.Clear();
         }
         return [.. result];

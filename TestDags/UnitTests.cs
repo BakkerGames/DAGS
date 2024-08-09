@@ -19,7 +19,7 @@ public class UnitTests
     [Test]
     public void TestGet()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         var key = "abc";
         var value = "123";
@@ -32,7 +32,7 @@ public class UnitTests
     [Test]
     public void TestSet()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         var key = "abc";
         var value = "123";
@@ -45,7 +45,7 @@ public class UnitTests
     [Test]
     public void TestSetScript()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         var key = "abc";
         var answer = "@comment(\"this is a comment\")";
@@ -59,7 +59,7 @@ public class UnitTests
     [Test]
     public void TestSetArray()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         var key = "abc";
         var value = "123";
@@ -72,7 +72,7 @@ public class UnitTests
     [Test]
     public void TestSetArray_Null()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         var key = "abc";
         var value = "";
@@ -85,7 +85,7 @@ public class UnitTests
     [Test]
     public void TestClearArray()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         var key = "abc";
         var value = "123";
@@ -99,7 +99,7 @@ public class UnitTests
     [Test]
     public void TestSetList()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         var key = "abc";
         var value = "123";
@@ -112,7 +112,7 @@ public class UnitTests
     [Test]
     public void TestSetList_Null()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         var key = "abc";
         var value = "";
@@ -125,7 +125,7 @@ public class UnitTests
     [Test]
     public void TestSetList_TabCRLF()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         var key = "abc";
         var value = "abc\t\r\n123";
@@ -138,7 +138,7 @@ public class UnitTests
     [Test]
     public void TestInsertAtList()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         var key = "abc";
         var value = "123";
@@ -158,7 +158,7 @@ public class UnitTests
     [Test]
     public void TestRemoveAtList()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         var key = "abc";
         var value = "123";
@@ -172,7 +172,7 @@ public class UnitTests
     [Test]
     public void TestFunction()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         dags.RunScript("@set(\"@boo\",\"@write(eek!)\")", result);
@@ -183,7 +183,7 @@ public class UnitTests
     [Test]
     public void TestFunctionParameters()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         dags.RunScript("@set(\"@boo(x)\",\"@write($x)\")", result);
@@ -194,7 +194,7 @@ public class UnitTests
     [Test]
     public void TestValidateSucceed()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         bool value = dags.ValidateScript("@set(key,value)", result);
@@ -204,7 +204,7 @@ public class UnitTests
     [Test]
     public void TestValidateFail()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         bool value = dags.ValidateScript("@blah(key)", result);
@@ -222,7 +222,7 @@ public class UnitTests
     [Test]
     public void Test_Abs()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -236,7 +236,7 @@ public class UnitTests
     [Test]
     public void Test_Add()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -247,7 +247,7 @@ public class UnitTests
     [Test]
     public void Test_AddTo()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -258,7 +258,7 @@ public class UnitTests
     [Test]
     public void Test_Comment()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -269,7 +269,7 @@ public class UnitTests
     [Test]
     public void Test_Concat()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -280,7 +280,7 @@ public class UnitTests
     [Test]
     public void Test_Div()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -291,7 +291,7 @@ public class UnitTests
     [Test]
     public void Test_DivTo()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -302,7 +302,7 @@ public class UnitTests
     [Test]
     public void Test_EQ()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -316,7 +316,7 @@ public class UnitTests
     [Test]
     public void Test_Exec()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -327,7 +327,7 @@ public class UnitTests
     [Test]
     public void Test_False()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -347,7 +347,7 @@ public class UnitTests
     [Test]
     public void Test_For()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -358,7 +358,7 @@ public class UnitTests
     [Test]
     public void Test_ForEachKey()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         dags.RunScript("@set(value.1,100) @set(value.2,200)", result);
@@ -373,7 +373,7 @@ public class UnitTests
     [Test]
     public void Test_ForEachList()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         dags.RunScript("@set(value,\"10,20,30\")", result);
@@ -385,7 +385,7 @@ public class UnitTests
     [Test]
     public void Test_Format()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -402,7 +402,7 @@ public class UnitTests
     [Test]
     public void Test_GE()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -419,7 +419,7 @@ public class UnitTests
     [Test]
     public void Test_GetInChannel()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         dags.InChannel.Enqueue("abc");
@@ -438,7 +438,7 @@ public class UnitTests
     [Test]
     public void Test_GetValue()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         dags.RunScript("@set(v1,\"@get(v2)\") @set(v2,123)", result);
@@ -453,7 +453,7 @@ public class UnitTests
     [Test]
     public void Test_GT()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -470,7 +470,7 @@ public class UnitTests
     [Test]
     public void Test_If()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -493,7 +493,7 @@ public class UnitTests
     [Test]
     public void Test_IsBool()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -510,7 +510,7 @@ public class UnitTests
     [Test]
     public void Test_IsNull()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -527,7 +527,7 @@ public class UnitTests
     [Test]
     public void Test_IsNullData()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -544,7 +544,7 @@ public class UnitTests
     [Test]
     public void Test_IsScript()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -558,7 +558,7 @@ public class UnitTests
     [Test]
     public void Test_IsScriptData()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -572,7 +572,7 @@ public class UnitTests
     [Test]
     public void Test_LE()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -589,7 +589,7 @@ public class UnitTests
     [Test]
     public void Test_Lower()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -603,7 +603,7 @@ public class UnitTests
     [Test]
     public void Test_LT()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -620,7 +620,7 @@ public class UnitTests
     [Test]
     public void Test_Mod()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -634,7 +634,7 @@ public class UnitTests
     [Test]
     public void Test_ModTo()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -645,7 +645,7 @@ public class UnitTests
     [Test]
     public void Test_Msg()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -656,7 +656,7 @@ public class UnitTests
     [Test]
     public void Test_Mul()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -668,7 +668,7 @@ public class UnitTests
     [Test]
     public void Test_MulTo()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -679,7 +679,7 @@ public class UnitTests
     [Test]
     public void Test_NE()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -693,7 +693,7 @@ public class UnitTests
     [Test]
     public void Test_NL()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -704,7 +704,7 @@ public class UnitTests
     [Test]
     public void Test_Not()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -715,7 +715,7 @@ public class UnitTests
     [Test]
     public void Test_Or()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -726,7 +726,7 @@ public class UnitTests
     [Test]
     public void Test_Rand()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -737,7 +737,7 @@ public class UnitTests
     [Test]
     public void Test_Replace()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -748,7 +748,7 @@ public class UnitTests
     [Test]
     public void Test_Rnd()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         dags.RunScript("@set(value,@rnd(20))", result);
@@ -761,7 +761,7 @@ public class UnitTests
     [Test]
     public void Test_Script()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         dags.RunScript("@set(script1,\"@write(abc)\")", result);
@@ -773,7 +773,7 @@ public class UnitTests
     [Test]
     public void Test_SetOutChannel()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -785,7 +785,7 @@ public class UnitTests
     [Test]
     public void Test_Sub()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -796,7 +796,7 @@ public class UnitTests
     [Test]
     public void Test_Substring()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -807,7 +807,7 @@ public class UnitTests
     [Test]
     public void Test_SubTo()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -818,7 +818,7 @@ public class UnitTests
     [Test]
     public void Test_Swap()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -829,7 +829,7 @@ public class UnitTests
     [Test]
     public void Test_Trim()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -840,7 +840,7 @@ public class UnitTests
     [Test]
     public void Test_True()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -854,7 +854,7 @@ public class UnitTests
     [Test]
     public void Test_Upper()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         result.Clear();
@@ -898,7 +898,7 @@ public class UnitTests
     [Test]
     public void Test_IfThenNoStatements()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         var script = "@if @eq(1,1) @then @endif";
@@ -909,7 +909,7 @@ public class UnitTests
     [Test]
     public void Test_IfThenElseNoStatements()
     {
-        Dictionary<string, string> data = [];
+        Dictionary<string, string?> data = [];
         Dags dags = new(data);
         StringBuilder result = new();
         var script = "@if @eq(1,2) @then @write(abc) @else @endif";

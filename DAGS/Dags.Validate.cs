@@ -52,10 +52,16 @@ public partial class Dags
             var token = tokens[index++];
             if (token.StartsWith('@'))
             {
-                if (KEYWORDS.Contains(token))
+                var found = false;
+                foreach (string key in KEYWORDS)
                 {
-                    continue;
+                    if (token.Equals(key, OIC))
+                    {
+                        found = true;
+                        break;
+                    }
                 }
+                if (found) continue;
                 if (token.EndsWith('('))
                 {
                     var dict = GetByPrefix(token);

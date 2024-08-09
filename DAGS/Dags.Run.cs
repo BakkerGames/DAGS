@@ -156,9 +156,9 @@ public partial class Dags
                     }
                     else
                     {
-                        temp1 = p[0].Equals(NULL_VALUE, OIC) ? "" : p[0].ToLowerInvariant();
-                        temp2 = p[1].Equals(NULL_VALUE, OIC) ? "" : p[1].ToLowerInvariant();
-                        answer = temp1.CompareTo(temp2) == 0;
+                        temp1 = p[0].Equals(NULL_VALUE, OIC) ? "" : p[0];
+                        temp2 = p[1].Equals(NULL_VALUE, OIC) ? "" : p[1];
+                        answer = string.Compare(temp1.ToLowerInvariant(), temp2.ToLowerInvariant(), OIC) == 0;
                     }
                     result.Append(ConvertToBoolString(answer));
                     return;
@@ -224,9 +224,9 @@ public partial class Dags
                     }
                     else
                     {
-                        temp1 = p[0].Equals(NULL_VALUE, OIC) ? "" : p[0].ToLowerInvariant();
-                        temp2 = p[1].Equals(NULL_VALUE, OIC) ? "" : p[1].ToLowerInvariant();
-                        answer = temp1.CompareTo(temp2) >= 0;
+                        temp1 = p[0].Equals(NULL_VALUE, OIC) ? "" : p[0];
+                        temp2 = p[1].Equals(NULL_VALUE, OIC) ? "" : p[1];
+                        answer = string.Compare(temp1.ToLowerInvariant(), temp2.ToLowerInvariant(), OIC) >= 0;
                     }
                     result.Append(ConvertToBoolString(answer));
                     return;
@@ -291,9 +291,9 @@ public partial class Dags
                     }
                     else
                     {
-                        temp1 = p[0].Equals(NULL_VALUE, OIC) ? "" : p[0].ToLowerInvariant();
-                        temp2 = p[1].Equals(NULL_VALUE, OIC) ? "" : p[1].ToLowerInvariant();
-                        answer = temp1.CompareTo(temp2) > 0;
+                        temp1 = p[0].Equals(NULL_VALUE, OIC) ? "" : p[0];
+                        temp2 = p[1].Equals(NULL_VALUE, OIC) ? "" : p[1];
+                        answer = string.Compare(temp1.ToLowerInvariant(), temp2.ToLowerInvariant(), OIC) > 0;
                     }
                     result.Append(ConvertToBoolString(answer));
                     return;
@@ -381,9 +381,9 @@ public partial class Dags
                     }
                     else
                     {
-                        temp1 = p[0].Equals(NULL_VALUE, OIC) ? "" : p[0].ToLowerInvariant();
-                        temp2 = p[1].Equals(NULL_VALUE, OIC) ? "" : p[1].ToLowerInvariant();
-                        answer = temp1.CompareTo(temp2) <= 0;
+                        temp1 = p[0].Equals(NULL_VALUE, OIC) ? "" : p[0];
+                        temp2 = p[1].Equals(NULL_VALUE, OIC) ? "" : p[1];
+                        answer = string.Compare(temp1.ToLowerInvariant(), temp2.ToLowerInvariant(), OIC) <= 0;
                     }
                     result.Append(ConvertToBoolString(answer));
                     return;
@@ -411,9 +411,9 @@ public partial class Dags
                     }
                     else
                     {
-                        temp1 = p[0].Equals(NULL_VALUE, OIC) ? "" : p[0].ToLowerInvariant();
-                        temp2 = p[1].Equals(NULL_VALUE, OIC) ? "" : p[1].ToLowerInvariant();
-                        answer = temp1.CompareTo(temp2) < 0;
+                        temp1 = p[0].Equals(NULL_VALUE, OIC) ? "" : p[0];
+                        temp2 = p[1].Equals(NULL_VALUE, OIC) ? "" : p[1];
+                        answer = string.Compare(temp1.ToLowerInvariant(), temp2.ToLowerInvariant(), OIC) < 0;
                     }
                     result.Append(ConvertToBoolString(answer));
                     return;
@@ -472,9 +472,9 @@ public partial class Dags
                     }
                     else
                     {
-                        temp1 = p[0].Equals(NULL_VALUE, OIC) ? "" : p[0].ToLowerInvariant();
-                        temp2 = p[1].Equals(NULL_VALUE, OIC) ? "" : p[1].ToLowerInvariant();
-                        answer = temp1.CompareTo(temp2) != 0;
+                        temp1 = p[0].Equals(NULL_VALUE, OIC) ? "" : p[0];
+                        temp2 = p[1].Equals(NULL_VALUE, OIC) ? "" : p[1];
+                        answer = string.Compare(temp1.ToLowerInvariant(), temp2.ToLowerInvariant(), OIC) != 0;
                     }
                     result.Append(ConvertToBoolString(answer));
                     return;

@@ -9,7 +9,6 @@ public partial class Dags
     /// </summary>
     private string Get(string key)
     {
-        if (key.StartsWith('@')) key = key.ToLower();
         if (_dict.TryGetValue(key, out string? value))
         {
             if (value == null || value == NULL_VALUE)
@@ -30,7 +29,6 @@ public partial class Dags
         {
             value = "";
         }
-        if (key.StartsWith('@')) key = key.ToLower();
         if (_dict.ContainsKey(key))
         {
             _dict[key] = value;
@@ -60,24 +58,14 @@ public partial class Dags
     /// <summary>
     /// Gets a subset of the dictionary where key begins with the prefix. Case sensitive except for "@..." prefixes.
     /// </summary>
-    private Dictionary<string, string> GetByPrefix(string prefix)
+    private Dictionary<string, string?> GetByPrefix(string prefix)
     {
-        Dictionary<string, string> result = [];
+        Dictionary<string, string?> result = [];
         List<string> keys;
-        if (prefix.StartsWith('@'))
-        {
-            keys = _dict.Keys.Where(x => x.StartsWith(prefix, OIC)).ToList();
-        }
-        else
-        {
-            keys = _dict.Keys.Where(x => x.StartsWith(prefix)).ToList();
-        }
+        keys = _dict.Keys.Where(x => x.StartsWith(prefix, OIC)).ToList();
         foreach (string k in keys)
         {
-            if (k.StartsWith('@'))
-                result.Add(k.ToLower(), Get(k));
-            else
-                result.Add(k, Get(k));
+            result.Add(k, Get(k));
         }
         return result;
     }
