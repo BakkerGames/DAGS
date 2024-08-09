@@ -20,7 +20,7 @@ public partial class Dags
             }
             else
             {
-                var value = _dict[s].TrimStart();
+                var value = _dict[s]?.TrimStart() ?? "";
                 if (value.StartsWith('@'))
                 {
                     ok = ok && ValidateScript(value, result);

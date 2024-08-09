@@ -698,7 +698,7 @@ public partial class Dags
                     int pIndex = 0;
                     foreach (string s in tempParams)
                     {
-                        tempValue = tempValue.Replace($"${s}", p[pIndex++]);
+                        tempValue = tempValue?.Replace($"${s}", p[pIndex++]) ?? "";
                     }
                     RunScript(tempValue, result);
                     return;
