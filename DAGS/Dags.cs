@@ -54,7 +54,7 @@ public partial class Dags(IDictionary<string, string?> dict)
     /// </summary>
     public static string PrettyScript(string script, bool indent = false)
     {
-        if (!script.TrimStart().StartsWith('@'))
+        if (!script.TrimStart().StartsWith('@') && !script.TrimStart().StartsWith('['))
         {
             return script;
         }
@@ -67,10 +67,74 @@ public partial class Dags(IDictionary<string, string?> dict)
         bool forLine = false;
         bool forEachKeyLine = false;
         bool forEachListLine = false;
+        bool inList = false;
+        bool inArray = false;
+        bool lastComma = false;
         var tokens = SplitTokens(script);
 
         foreach (string s in tokens)
         {
+            // handle lists and arrays
+            if (s == "[")
+            {
+                if (!inList)
+                {
+                    inList = true;
+                    if (inArray && !lastComma)
+                    {
+                        result.AppendLine(",");
+                    }
+                }
+                else
+                {
+                    inArray = true;
+                    result.AppendLine();
+                    indentLevel++;
+                }
+                if (indentLevel > 0)
+                {
+                    result.Append(new string('\t', indentLevel));
+                }
+                result.Append(s);
+                lastComma = false;
+                continue;
+            }
+            if (s == "]")
+            {
+                if (inList)
+                {
+                    inList = false;
+                }
+                else
+                {
+                    inArray = false;
+                    if (!lastComma)
+                    {
+                        result.AppendLine();
+                    }
+                    if (indentLevel > startIndent) indentLevel--;
+                    if (indentLevel > 0)
+                    {
+                        result.Append(new string('\t', indentLevel));
+                    }
+                }
+                result.Append(s);
+                lastComma = false;
+                continue;
+            }
+            if (s == "," && inArray && !inList)
+            {
+                result.AppendLine(s);
+                lastComma = true;
+                continue;
+            }
+            if (inArray || inList)
+            {
+                result.Append(s);
+                lastComma = false;
+                continue;
+            }
+            // handle everything else
             switch (s)
             {
                 case ELSEIF:

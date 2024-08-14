@@ -113,7 +113,7 @@ public partial class Dags
                 token.Append(c);
                 continue;
             }
-            if (c == ',' || c == ')')
+            if (c == ',' || c == ')' || c == '[' || c == ']')
             {
                 if (token.Length > 0)
                 {
