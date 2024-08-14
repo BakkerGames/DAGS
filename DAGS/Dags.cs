@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using GROD;
+using System.Text;
 using static DAGS.Constants;
 
 namespace DAGS;
@@ -6,8 +7,13 @@ namespace DAGS;
 /// <summary>
 /// Generate a DAGS script object and assign its dictionary.
 /// </summary>
-public partial class Dags(IDictionary<string, string?> dict)
+public partial class Dags(Grod grod)
 {
+    /// <summary>
+    /// Grod dictionary of (key,value) pairs
+    /// </summary>
+    public Grod data { get; set; } = grod;
+
     /// <summary>
     /// Receives metadata from the calling program, such as text input.
     /// </summary>

@@ -9,7 +9,7 @@ public partial class Dags
     /// </summary>
     private string Get(string key)
     {
-        if (_dict.TryGetValue(key, out string? value))
+        if (data.TryGetValue(key, out string? value))
         {
             if (value == null || value == NULL_VALUE)
             {
@@ -29,13 +29,13 @@ public partial class Dags
         {
             value = "";
         }
-        if (_dict.ContainsKey(key))
+        if (data.ContainsKey(key))
         {
-            _dict[key] = value;
+            data[key] = value;
         }
         else
         {
-            _dict.Add(key, value);
+            data.Add(key, value);
         }
     }
 
@@ -62,7 +62,7 @@ public partial class Dags
     {
         Dictionary<string, string?> result = [];
         List<string> keys;
-        keys = _dict.Keys.Where(x => x.StartsWith(prefix, OIC)).ToList();
+        keys = data.Keys.Where(x => x.StartsWith(prefix, OIC)).ToList();
         foreach (string k in keys)
         {
             result.Add(k, Get(k));

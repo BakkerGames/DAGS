@@ -49,4 +49,8 @@ A simple scripting language for handling game data in a dictionary object.</Desc
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GROD\GROD.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -992,7 +992,7 @@ public partial class Dags
             newTokens.Append(token);
         } while (index < tokens.Length);
 
-        var keys = _dict.Keys.Where(x => x.StartsWith(p[1]));
+        var keys = data.Keys.Where(x => x.StartsWith(p[1]));
         foreach (string key in keys)
         {
             var value = key[p[1].Length..];
@@ -1034,7 +1034,7 @@ public partial class Dags
             newTokens.Append(token);
         } while (index < tokens.Length);
 
-        var valueList = ExpandList(_dict[p[1]]);
+        var valueList = ExpandList(data[p[1]]);
         foreach (var value in valueList)
         {
             if (value == "" || value == NULL_VALUE)
