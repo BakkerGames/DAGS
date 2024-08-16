@@ -12,7 +12,7 @@ public partial class Dags(Grod grod)
     /// <summary>
     /// Grod dictionary of (key,value) pairs
     /// </summary>
-    public Grod data { get; set; } = grod;
+    public Grod Data { get; set; } = grod;
 
     /// <summary>
     /// Receives metadata from the calling program, such as text input.
